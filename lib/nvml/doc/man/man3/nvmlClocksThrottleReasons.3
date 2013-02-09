@@ -1,0 +1,120 @@
+.TH "NvmlClocksThrottleReasons" 3 "8 Jan 2013" "Version 1.1" "NVML" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NvmlClocksThrottleReasons \- 
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBnvmlClocksThrottleReasonGpuIdle\fP   0x0000000000000001LL"
+.br
+.ti -1c
+.RI "#define \fBnvmlClocksThrottleReasonUserDefinedClocks\fP   0x0000000000000002LL"
+.br
+.ti -1c
+.RI "#define \fBnvmlClocksThrottleReasonSwPowerCap\fP   0x0000000000000004LL"
+.br
+.ti -1c
+.RI "#define \fBnvmlClocksThrottleReasonHwSlowdown\fP   0x0000000000000008LL"
+.br
+.ti -1c
+.RI "#define \fBnvmlClocksThrottleReasonUnknown\fP   0x8000000000000000LL"
+.br
+.ti -1c
+.RI "#define \fBnvmlClocksThrottleReasonNone\fP   0x0000000000000000LL"
+.br
+.ti -1c
+.RI "#define \fBnvmlClocksThrottleReasonAll\fP"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define nvmlClocksThrottleReasonAll"
+.PP
+\fBValue:\fP
+.PP
+.nf
+(nvmlClocksThrottleReasonNone \
+      | nvmlClocksThrottleReasonGpuIdle                           \
+      | nvmlClocksThrottleReasonUserDefinedClocks                 \
+      | nvmlClocksThrottleReasonSwPowerCap                        \
+      | nvmlClocksThrottleReasonHwSlowdown                        \
+      | nvmlClocksThrottleReasonUnknown                           \
+        )
+.fi
+Bit mask representing all supported clocks throttling reasons New reasons might be added to this list in the future 
+.SS "#define nvmlClocksThrottleReasonGpuIdle   0x0000000000000001LL"
+.PP
+Nothing is running on the GPU and the clocks are dropping to Idle state 
+.PP
+\fBNote:\fP
+.RS 4
+This limiter may be removed in a later release 
+.RE
+.PP
+
+.SS "#define nvmlClocksThrottleReasonHwSlowdown   0x0000000000000008LL"
+.PP
+HW Slowdown (reducing the core clocks by a factor of 2 or more) is engaged
+.PP
+This is an indicator of:
+.IP "\(bu" 2
+temperature being too high
+.IP "\(bu" 2
+External Power Brake Assertion is triggered (e.g. by the system power supply)
+.IP "\(bu" 2
+Power draw is too high and Fast Trigger protection is reducing the clocks
+.IP "\(bu" 2
+May be also reported during PState or clock change
+.IP "  \(bu" 4
+This behavior may be removed in a later release.
+.PP
+
+.PP
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceGetTemperature\fP 
+.PP
+\fBnvmlDeviceGetPowerUsage\fP 
+.RE
+.PP
+
+.SS "#define nvmlClocksThrottleReasonNone   0x0000000000000000LL"
+.PP
+Bit mask representing no clocks throttling
+.PP
+Clocks are as high as possible. 
+.SS "#define nvmlClocksThrottleReasonSwPowerCap   0x0000000000000004LL"
+.PP
+SW Power Scaling algorithm is reducing the clocks below requested clocks
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceGetPowerUsage\fP 
+.PP
+\fBnvmlDeviceSetPowerManagementLimit\fP 
+.PP
+\fBnvmlDeviceGetPowerManagementLimit\fP 
+.RE
+.PP
+
+.SS "#define nvmlClocksThrottleReasonUnknown   0x8000000000000000LL"
+.PP
+Some other unspecified factor is reducing the clocks 
+.SS "#define nvmlClocksThrottleReasonUserDefinedClocks   0x0000000000000002LL"
+.PP
+GPU clocks are limited by user specified limit
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceSetApplicationsClocks\fP 
+.PP
+\fBnvmlDeviceGetApplicationsClock\fP 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NVML from the source code.

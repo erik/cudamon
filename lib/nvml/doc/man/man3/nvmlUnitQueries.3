@@ -1,0 +1,318 @@
+.TH "Unit Queries" 3 "8 Jan 2013" "Version 1.1" "NVML" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Unit Queries \- 
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlUnitGetCount\fP (unsigned int *unitCount)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlUnitGetHandleByIndex\fP (unsigned int index, nvmlUnit_t *unit)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlUnitGetUnitInfo\fP (nvmlUnit_t unit, \fBnvmlUnitInfo_t\fP *info)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlUnitGetLedState\fP (nvmlUnit_t unit, \fBnvmlLedState_t\fP *state)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlUnitGetPsuInfo\fP (nvmlUnit_t unit, \fBnvmlPSUInfo_t\fP *psu)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlUnitGetTemperature\fP (nvmlUnit_t unit, unsigned int type, unsigned int *temp)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlUnitGetFanSpeedInfo\fP (nvmlUnit_t unit, \fBnvmlUnitFanSpeeds_t\fP *fanSpeeds)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlUnitGetDevices\fP (nvmlUnit_t unit, unsigned int *deviceCount, nvmlDevice_t *devices)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlSystemGetHicVersion\fP (unsigned int *hwbcCount, \fBnvmlHwbcEntry_t\fP *hwbcEntries)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+This chapter describes that queries that NVML can perform against each unit. For S-class systems only. In each case the device is identified with an nvmlUnit_t handle. This handle is obtained by calling \fBnvmlUnitGetHandleByIndex()\fP. 
+.SH "Function Documentation"
+.PP 
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlSystemGetHicVersion (unsigned int * hwbcCount, \fBnvmlHwbcEntry_t\fP * hwbcEntries)"
+.PP
+Retrieves the IDs and firmware versions for any Host Interface Cards (HICs) in the system.
+.PP
+For S-class products.
+.PP
+The \fIhwbcCount\fP argument is expected to be set to the size of the input \fIhwbcEntries\fP array. The HIC must be connected to an S-class system for it to be reported by this function.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhwbcCount\fP Size of hwbcEntries array 
+.br
+\fIhwbcEntries\fP Array holding information about hwbc
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIhwbcCount\fP and \fIhwbcEntries\fP have been populated
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if either \fIhwbcCount\fP or \fIhwbcEntries\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_INSUFFICIENT_SIZE\fP if \fIhwbcCount\fP indicates that the \fIhwbcEntries\fP array is too small 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlUnitGetCount (unsigned int * unitCount)"
+.PP
+Retrieves the number of units in the system.
+.PP
+For S-class products.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIunitCount\fP Reference in which to return the number of units
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIunitCount\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIunitCount\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlUnitGetDevices (nvmlUnit_t unit, unsigned int * deviceCount, nvmlDevice_t * devices)"
+.PP
+Retrieves the set of GPU devices that are attached to the specified unit.
+.PP
+For S-class products.
+.PP
+The \fIdeviceCount\fP argument is expected to be set to the size of the input \fIdevices\fP array.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIunit\fP The identifier of the target unit 
+.br
+\fIdeviceCount\fP Reference in which to provide the \fIdevices\fP array size, and to return the number of attached GPU devices 
+.br
+\fIdevices\fP Reference in which to return the references to the attached GPU devices
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIdeviceCount\fP and \fIdevices\fP have been populated
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INSUFFICIENT_SIZE\fP if \fIdeviceCount\fP indicates that the \fIdevices\fP array is too small
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIunit\fP is invalid, either of \fIdeviceCount\fP or \fIdevices\fP is NULL 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlUnitGetFanSpeedInfo (nvmlUnit_t unit, \fBnvmlUnitFanSpeeds_t\fP * fanSpeeds)"
+.PP
+Retrieves the fan speed readings for the unit.
+.PP
+For S-class products.
+.PP
+See \fBnvmlUnitFanSpeeds_t\fP for details on available fan speed info.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIunit\fP The identifier of the target unit 
+.br
+\fIfanSpeeds\fP Reference in which to return the fan speed information
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIfanSpeeds\fP has been populated
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIunit\fP is invalid or \fIfanSpeeds\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if this is not an S-class product
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlUnitGetHandleByIndex (unsigned int index, nvmlUnit_t * unit)"
+.PP
+Acquire the handle for a particular unit, based on its index.
+.PP
+For S-class products.
+.PP
+Valid indices are derived from the \fIunitCount\fP returned by \fBnvmlUnitGetCount()\fP. For example, if \fIunitCount\fP is 2 the valid indices are 0 and 1, corresponding to UNIT 0 and UNIT 1.
+.PP
+The order in which NVML enumerates units has no guarantees of consistency between reboots.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIindex\fP The index of the target unit, >= 0 and < \fIunitCount\fP 
+.br
+\fIunit\fP Reference in which to return the unit handle
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIunit\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIindex\fP is invalid or \fIunit\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlUnitGetLedState (nvmlUnit_t unit, \fBnvmlLedState_t\fP * state)"
+.PP
+Retrieves the LED state associated with this unit.
+.PP
+For S-class products.
+.PP
+See \fBnvmlLedState_t\fP for details on allowed states.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIunit\fP The identifier of the target unit 
+.br
+\fIstate\fP Reference in which to return the current LED state
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIstate\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIunit\fP is invalid or \fIstate\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if this is not an S-class product
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlUnitSetLedState()\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlUnitGetPsuInfo (nvmlUnit_t unit, \fBnvmlPSUInfo_t\fP * psu)"
+.PP
+Retrieves the PSU stats for the unit.
+.PP
+For S-class products.
+.PP
+See \fBnvmlPSUInfo_t\fP for details on available PSU info.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIunit\fP The identifier of the target unit 
+.br
+\fIpsu\fP Reference in which to return the PSU information
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIpsu\fP has been populated
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIunit\fP is invalid or \fIpsu\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if this is not an S-class product
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlUnitGetTemperature (nvmlUnit_t unit, unsigned int type, unsigned int * temp)"
+.PP
+Retrieves the temperature readings for the unit, in degrees C.
+.PP
+For S-class products.
+.PP
+Depending on the product, readings may be available for intake (type=0), exhaust (type=1) and board (type=2).
+.PP
+\fBParameters:\fP
+.RS 4
+\fIunit\fP The identifier of the target unit 
+.br
+\fItype\fP The type of reading to take 
+.br
+\fItemp\fP Reference in which to return the intake temperature
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fItemp\fP has been populated
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIunit\fP or \fItype\fP is invalid or \fItemp\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if this is not an S-class product
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlUnitGetUnitInfo (nvmlUnit_t unit, \fBnvmlUnitInfo_t\fP * info)"
+.PP
+Retrieves the static information associated with a unit.
+.PP
+For S-class products.
+.PP
+See \fBnvmlUnitInfo_t\fP for details on available unit info.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIunit\fP The identifier of the target unit 
+.br
+\fIinfo\fP Reference in which to return the unit information
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIinfo\fP has been populated
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIunit\fP is invalid or \fIinfo\fP is NULL 
+.PP
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NVML from the source code.

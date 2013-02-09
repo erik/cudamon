@@ -1,0 +1,391 @@
+.TH "Device Commands" 3 "8 Jan 2013" "Version 1.1" "NVML" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Device Commands \- 
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceSetPersistenceMode\fP (nvmlDevice_t device, \fBnvmlEnableState_t\fP mode)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceSetComputeMode\fP (nvmlDevice_t device, \fBnvmlComputeMode_t\fP mode)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceSetEccMode\fP (nvmlDevice_t device, \fBnvmlEnableState_t\fP ecc)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceClearEccErrorCounts\fP (nvmlDevice_t device, \fBnvmlEccCounterType_t\fP counterType)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceSetDriverModel\fP (nvmlDevice_t device, \fBnvmlDriverModel_t\fP driverModel, unsigned int flags)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceSetApplicationsClocks\fP (nvmlDevice_t device, unsigned int memClockMHz, unsigned int graphicsClockMHz)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceSetPowerManagementLimit\fP (nvmlDevice_t device, unsigned int limit)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceSetGpuOperationMode\fP (nvmlDevice_t device, \fBnvmlGpuOperationMode_t\fP mode)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+This chapter describes NVML operations that change the state of the device. Each of these requires root/admin access. Non-admin users will see an NVML_ERROR_NO_PERMISSION error code when invoking any of these methods. 
+.SH "Function Documentation"
+.PP 
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceClearEccErrorCounts (nvmlDevice_t device, \fBnvmlEccCounterType_t\fP counterType)"
+.PP
+Clear the ECC error counts for the device.
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families. Requires \fINVML_INFOROM_ECC\fP version 2.0 or higher to clear aggregate location-based ECC counts. Requires \fINVML_INFOROM_ECC\fP version 1.0 or higher to clear all other ECC counts. Requires root/admin permissions. Requires ECC Mode to be enabled.
+.PP
+Sets all of the specified ECC counters to 0, including both detailed and total counts.
+.PP
+This operation takes effect immediately.
+.PP
+See \fBnvmlEccCounterType_t\fP for details on available counter types.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIcounterType\fP Flag that indicates which type of errors should be cleared.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if the error counts were cleared
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIcounterType\fP is invalid
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_NO_PERMISSION\fP if the user doesn't have permission to perform this operation
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+.IP "\(bu" 2
+\fBnvmlDeviceGetDetailedEccErrors()\fP
+.IP "\(bu" 2
+\fBnvmlDeviceGetTotalEccErrors()\fP 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceSetApplicationsClocks (nvmlDevice_t device, unsigned int memClockMHz, unsigned int graphicsClockMHz)"
+.PP
+Set clocks that applications will lock to.
+.PP
+Sets the clocks that compute and graphics applications will be running at. e.g. CUDA driver requests these clocks during context creation which means this property defines clocks at which CUDA applications will be running unless some overspec event occurs (e.g. over power, over thermal or external HW brake).
+.PP
+Can be used as a setting to request constant performance.
+.PP
+For Tesla (TM) products, and Quadro (R) products from the Kepler family. Requires root/admin permissions.
+.PP
+See \fBnvmlDeviceGetSupportedMemoryClocks\fP and \fBnvmlDeviceGetSupportedGraphicsClocks\fP for details on how to list available clocks combinations.
+.PP
+After system reboot or driver reload applications clocks go back to their default value.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fImemClockMHz\fP Requested memory clock in MHz 
+.br
+\fIgraphicsClockMHz\fP Requested graphics clock in MHz
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if new settings were successfully set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fImemClockMHz\fP and \fIgraphicsClockMHz\fP is not a valid clock combination
+.IP "\(bu" 2
+\fBNVML_ERROR_NO_PERMISSION\fP if the user doesn't have permission to perform this operation
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device doesn't support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceSetComputeMode (nvmlDevice_t device, \fBnvmlComputeMode_t\fP mode)"
+.PP
+Set the compute mode for the device.
+.PP
+For all CUDA-capable products. Requires root/admin permissions.
+.PP
+The compute mode determines whether a GPU can be used for compute operations and whether it can be shared across contexts.
+.PP
+This operation takes effect immediately. Under Linux it is not persistent across reboots and always resets to 'Default'. Under windows it is persistent.
+.PP
+Under windows compute mode may only be set to DEFAULT when running in WDDM
+.PP
+See \fBnvmlComputeMode_t\fP for details on available compute modes.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fImode\fP The target compute mode
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if the compute mode was set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fImode\fP is invalid
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_NO_PERMISSION\fP if the user doesn't have permission to perform this operation
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceGetComputeMode()\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceSetDriverModel (nvmlDevice_t device, \fBnvmlDriverModel_t\fP driverModel, unsigned int flags)"
+.PP
+Set the driver model for the device.
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families. For windows only. Requires root/admin permissions.
+.PP
+On Windows platforms the device driver can run in either WDDM or WDM (TCC) mode. If a display is attached to the device it must run in WDDM mode.
+.PP
+It is possible to force the change to WDM (TCC) while the display is still attached with a force flag (nvmlFlagForce). This should only be done if the host is subsequently powered down and the display is detached from the device before the next reboot.
+.PP
+This operation takes effect after the next reboot.
+.PP
+Windows driver model may only be set to WDDM when running in DEFAULT compute mode.
+.PP
+Change driver model to WDDM is not supported when GPU doesn't support graphics acceleration or will not support it after reboot. See \fBnvmlDeviceSetGpuOperationMode\fP.
+.PP
+See \fBnvmlDriverModel_t\fP for details on available driver models. See \fBnvmlFlagDefault\fP and \fBnvmlFlagForce\fP
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIdriverModel\fP The target driver model 
+.br
+\fIflags\fP Flags that change the default behavior
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if the driver model has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIdriverModel\fP is invalid
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the platform is not windows or the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_NO_PERMISSION\fP if the user doesn't have permission to perform this operation
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceGetDriverModel()\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceSetEccMode (nvmlDevice_t device, \fBnvmlEnableState_t\fP ecc)"
+.PP
+Set the ECC mode for the device.
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families. Requires \fINVML_INFOROM_ECC\fP version 1.0 or higher. Requires root/admin permissions.
+.PP
+The ECC mode determines whether the GPU enables its ECC support.
+.PP
+This operation takes effect after the next reboot.
+.PP
+See \fBnvmlEnableState_t\fP for details on available modes.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIecc\fP The target ECC mode
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if the ECC mode was set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIecc\fP is invalid
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_NO_PERMISSION\fP if the user doesn't have permission to perform this operation
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceGetEccMode()\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceSetGpuOperationMode (nvmlDevice_t device, \fBnvmlGpuOperationMode_t\fP mode)"
+.PP
+Sets new GOM. See \fInvmlGpuOperationMode_t\fP for details.
+.PP
+For GK110 M-class and X-class Tesla (TM) products from the Kepler family. Not supported on Quadro (R) and Tesla (TM) C-class products. Requires root/admin permissions.
+.PP
+Changing GOMs requires a reboot. The reboot requirement might be removed in the future.
+.PP
+Compute only GOMs don't support graphics acceleration. Under windows switching to these GOMs when pending driver model is WDDM is not supported. See \fBnvmlDeviceSetDriverModel\fP.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fImode\fP Target GOM
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fImode\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fImode\fP incorrect
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support GOM or specific mode
+.IP "\(bu" 2
+\fBNVML_ERROR_NO_PERMISSION\fP if the user doesn't have permission to perform this operation
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlGpuOperationMode_t\fP 
+.PP
+\fBnvmlDeviceGetGpuOperationMode\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceSetPersistenceMode (nvmlDevice_t device, \fBnvmlEnableState_t\fP mode)"
+.PP
+Set the persistence mode for the device.
+.PP
+For all CUDA-capable products. For Linux only. Requires root/admin permissions.
+.PP
+The persistence mode determines whether the GPU driver software is torn down after the last client exits.
+.PP
+This operation takes effect immediately. It is not persistent across reboots. After each reboot the persistence mode is reset to 'Disabled'.
+.PP
+See \fBnvmlEnableState_t\fP for available modes.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fImode\fP The target persistence mode
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if the persistence mode was set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fImode\fP is invalid
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_NO_PERMISSION\fP if the user doesn't have permission to perform this operation
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceGetPersistenceMode()\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceSetPowerManagementLimit (nvmlDevice_t device, unsigned int limit)"
+.PP
+Set new power limit of this device.
+.PP
+For Tesla (TM) and Quadro (R) products from the Kepler family. Requires root/admin permissions.
+.PP
+See \fBnvmlDeviceGetPowerManagementLimitConstraints\fP to check the allowed ranges of values.
+.PP
+\fBNote:\fP
+.RS 4
+Limit is not persistent across reboots or driver unloads. Enable persistent mode to prevent driver from unloading when no application is using the device.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIlimit\fP Power management limit in milliwatts to set
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIlimit\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIdefaultLimit\fP is out of range
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceGetPowerManagementLimitConstraints\fP 
+.PP
+\fBnvmlDeviceGetPowerManagementDefaultLimit\fP 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NVML from the source code.

@@ -1,0 +1,29 @@
+.TH "nvmlProcessInfo_t" 3 "8 Jan 2013" "Version 1.1" "NVML" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+nvmlProcessInfo_t \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <nvml.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "unsigned int \fBpid\fP"
+.br
+.RI "\fIProcess ID. \fP"
+.ti -1c
+.RI "unsigned long long \fBusedGpuMemory\fP"
+.br
+.RI "\fIAmount of used GPU memory in bytes. Under WDDM, \fBNVML_VALUE_NOT_AVAILABLE\fP is always reported because Windows KMD manages all the memory and not the NVIDIA driver. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Information about running compute processes on the GPU 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NVML from the source code.

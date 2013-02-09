@@ -1,0 +1,382 @@
+.TH "Device Enums" 3 "8 Jan 2013" "Version 1.1" "NVML" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Device Enums \- 
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBnvmlFlagDefault\fP   0x00"
+.br
+.RI "\fIGeneric flag used to specify the default behavior of some functions. See description of particular functions for details. \fP"
+.ti -1c
+.RI "#define \fBnvmlFlagForce\fP   0x01"
+.br
+.RI "\fIGeneric flag used to force some behavior. See description of particular functions for details. \fP"
+.ti -1c
+.RI "#define \fBnvmlEccBitType_t\fP   \fBnvmlMemoryErrorType_t\fP"
+.br
+.ti -1c
+.RI "#define \fBNVML_SINGLE_BIT_ECC\fP   NVML_MEMORY_ERROR_TYPE_CORRECTED"
+.br
+.ti -1c
+.RI "#define \fBNVML_DOUBLE_BIT_ECC\fP   NVML_MEMORY_ERROR_TYPE_UNCORRECTED"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBnvmlEnableState_t\fP { \fBNVML_FEATURE_DISABLED\fP =  0, \fBNVML_FEATURE_ENABLED\fP =  1 }"
+.br
+.ti -1c
+.RI "enum \fBnvmlTemperatureSensors_t\fP { \fBNVML_TEMPERATURE_GPU\fP =  0 }"
+.br
+.ti -1c
+.RI "enum \fBnvmlComputeMode_t\fP { \fBNVML_COMPUTEMODE_DEFAULT\fP =  0, \fBNVML_COMPUTEMODE_EXCLUSIVE_THREAD\fP =  1, \fBNVML_COMPUTEMODE_PROHIBITED\fP =  2, \fBNVML_COMPUTEMODE_EXCLUSIVE_PROCESS\fP =  3 }"
+.br
+.ti -1c
+.RI "enum \fBnvmlMemoryErrorType_t\fP { \fBNVML_MEMORY_ERROR_TYPE_CORRECTED\fP =  0, \fBNVML_MEMORY_ERROR_TYPE_UNCORRECTED\fP =  1, \fBNVML_MEMORY_ERROR_TYPE_COUNT\fP }"
+.br
+.ti -1c
+.RI "enum \fBnvmlEccCounterType_t\fP { \fBNVML_VOLATILE_ECC\fP =  0, \fBNVML_AGGREGATE_ECC\fP =  1 }"
+.br
+.ti -1c
+.RI "enum \fBnvmlClockType_t\fP { \fBNVML_CLOCK_GRAPHICS\fP =  0, \fBNVML_CLOCK_SM\fP =  1, \fBNVML_CLOCK_MEM\fP =  2 }"
+.br
+.ti -1c
+.RI "enum \fBnvmlDriverModel_t\fP { \fBNVML_DRIVER_WDDM\fP =  0, \fBNVML_DRIVER_WDM\fP =  1 }"
+.br
+.ti -1c
+.RI "enum \fBnvmlPstates_t\fP { \fBNVML_PSTATE_0\fP =  0, \fBNVML_PSTATE_1\fP =  1, \fBNVML_PSTATE_2\fP =  2, \fBNVML_PSTATE_3\fP =  3, \fBNVML_PSTATE_4\fP =  4, \fBNVML_PSTATE_5\fP =  5, \fBNVML_PSTATE_6\fP =  6, \fBNVML_PSTATE_7\fP =  7, \fBNVML_PSTATE_8\fP =  8, \fBNVML_PSTATE_9\fP =  9, \fBNVML_PSTATE_10\fP =  10, \fBNVML_PSTATE_11\fP =  11, \fBNVML_PSTATE_12\fP =  12, \fBNVML_PSTATE_13\fP =  13, \fBNVML_PSTATE_14\fP =  14, \fBNVML_PSTATE_15\fP =  15, \fBNVML_PSTATE_UNKNOWN\fP =  32 }"
+.br
+.ti -1c
+.RI "enum \fBnvmlGpuOperationMode_t\fP { \fBNVML_GOM_ALL_ON\fP =  0, \fBNVML_GOM_COMPUTE\fP =  1, \fBNVML_GOM_LOW_DP\fP =  2 }"
+.br
+.ti -1c
+.RI "enum \fBnvmlInforomObject_t\fP { \fBNVML_INFOROM_OEM\fP =  0, \fBNVML_INFOROM_ECC\fP =  1, \fBNVML_INFOROM_POWER\fP =  2, \fBNVML_INFOROM_COUNT\fP }"
+.br
+.ti -1c
+.RI "enum \fBnvmlReturn_t\fP { \fBNVML_SUCCESS\fP =  0, \fBNVML_ERROR_UNINITIALIZED\fP =  1, \fBNVML_ERROR_INVALID_ARGUMENT\fP =  2, \fBNVML_ERROR_NOT_SUPPORTED\fP =  3, \fBNVML_ERROR_NO_PERMISSION\fP =  4, \fBNVML_ERROR_ALREADY_INITIALIZED\fP =  5, \fBNVML_ERROR_NOT_FOUND\fP =  6, \fBNVML_ERROR_INSUFFICIENT_SIZE\fP =  7, \fBNVML_ERROR_INSUFFICIENT_POWER\fP =  8, \fBNVML_ERROR_DRIVER_NOT_LOADED\fP =  9, \fBNVML_ERROR_TIMEOUT\fP =  10, \fBNVML_ERROR_IRQ_ISSUE\fP =  11, \fBNVML_ERROR_LIBRARY_NOT_FOUND\fP =  12, \fBNVML_ERROR_FUNCTION_NOT_FOUND\fP =  13, \fBNVML_ERROR_CORRUPTED_INFOROM\fP =  14, \fBNVML_ERROR_UNKNOWN\fP =  999 }"
+.br
+.ti -1c
+.RI "enum \fBnvmlMemoryLocation_t\fP { \fBNVML_MEMORY_LOCATION_L1_CACHE\fP =  0, \fBNVML_MEMORY_LOCATION_L2_CACHE\fP =  1, \fBNVML_MEMORY_LOCATION_DEVICE_MEMORY\fP =  2, \fBNVML_MEMORY_LOCATION_REGISTER_FILE\fP =  3, \fBNVML_MEMORY_LOCATION_TEXTURE_MEMORY\fP =  4, \fBNVML_MEMORY_LOCATION_COUNT\fP }"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define NVML_DOUBLE_BIT_ECC   NVML_MEMORY_ERROR_TYPE_UNCORRECTED"
+.PP
+Double bit ECC errors
+.PP
+\fBDeprecated\fP
+.RS 4
+Mapped to \fBNVML_MEMORY_ERROR_TYPE_UNCORRECTED\fP 
+.RE
+.PP
+
+.SS "#define NVML_SINGLE_BIT_ECC   NVML_MEMORY_ERROR_TYPE_CORRECTED"
+.PP
+Single bit ECC errors
+.PP
+\fBDeprecated\fP
+.RS 4
+Mapped to \fBNVML_MEMORY_ERROR_TYPE_CORRECTED\fP 
+.RE
+.PP
+
+.SS "#define nvmlEccBitType_t   \fBnvmlMemoryErrorType_t\fP"
+.PP
+ECC bit types.
+.PP
+\fBDeprecated\fP
+.RS 4
+See \fBnvmlMemoryErrorType_t\fP for a more flexible type 
+.RE
+.PP
+
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBnvmlClockType_t\fP"
+.PP
+Clock types.
+.PP
+All speeds are in Mhz. 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fINVML_CLOCK_GRAPHICS \fP\fP
+Graphics clock domain. 
+.TP
+\fB\fINVML_CLOCK_SM \fP\fP
+SM clock domain. 
+.TP
+\fB\fINVML_CLOCK_MEM \fP\fP
+Memory clock domain. 
+.SS "enum \fBnvmlComputeMode_t\fP"
+.PP
+Compute mode.
+.PP
+NVML_COMPUTEMODE_EXCLUSIVE_PROCESS was added in CUDA 4.0. Earlier CUDA versions supported a single exclusive mode, which is equivalent to NVML_COMPUTEMODE_EXCLUSIVE_THREAD in CUDA 4.0 and beyond. 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fINVML_COMPUTEMODE_DEFAULT \fP\fP
+Default compute mode -- multiple contexts per device. 
+.TP
+\fB\fINVML_COMPUTEMODE_EXCLUSIVE_THREAD \fP\fP
+Compute-exclusive-thread mode -- only one context per device, usable from one thread at a time. 
+.TP
+\fB\fINVML_COMPUTEMODE_PROHIBITED \fP\fP
+Compute-prohibited mode -- no contexts per device. 
+.TP
+\fB\fINVML_COMPUTEMODE_EXCLUSIVE_PROCESS \fP\fP
+Compute-exclusive-process mode -- only one context per device, usable from multiple threads at a time. 
+.SS "enum \fBnvmlDriverModel_t\fP"
+.PP
+Driver models.
+.PP
+Windows only. 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fINVML_DRIVER_WDDM \fP\fP
+WDDM driver model -- GPU treated as a display device. 
+.TP
+\fB\fINVML_DRIVER_WDM \fP\fP
+WDM (TCC) model (recommended) -- GPU treated as a generic device. 
+.SS "enum \fBnvmlEccCounterType_t\fP"
+.PP
+ECC counter types.
+.PP
+Note: Volatile counts are reset each time the driver loads. On Windows this is once per boot. On Linux this can be more frequent. On Linux the driver unloads when no active clients exist. If persistence mode is enabled or there is always a driver client active (e.g. X11), then Linux also sees per-boot behavior. If not, volatile counts are reset each time a compute app is run. 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fINVML_VOLATILE_ECC \fP\fP
+Volatile counts are reset each time the driver loads. 
+.TP
+\fB\fINVML_AGGREGATE_ECC \fP\fP
+Aggregate counts persist across reboots (i.e. for the lifetime of the device). 
+.SS "enum \fBnvmlEnableState_t\fP"
+.PP
+Generic enable/disable enum. 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fINVML_FEATURE_DISABLED \fP\fP
+Feature disabled. 
+.TP
+\fB\fINVML_FEATURE_ENABLED \fP\fP
+Feature enabled. 
+.SS "enum \fBnvmlGpuOperationMode_t\fP"
+.PP
+GPU Operation Mode
+.PP
+GOM allows to reduce power usage and optimize GPU throughput by disabling GPU features.
+.PP
+Each GOM is designed to meet specific user needs. 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fINVML_GOM_ALL_ON \fP\fP
+Everything is enabled and running at full speed. 
+.TP
+\fB\fINVML_GOM_COMPUTE \fP\fP
+Designed for running only compute tasks. Graphics operations < are not allowed. 
+.TP
+\fB\fINVML_GOM_LOW_DP \fP\fP
+Designed for running graphics applications that don't require < high bandwidth double precision. 
+.SS "enum \fBnvmlInforomObject_t\fP"
+.PP
+Available infoROM objects. 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fINVML_INFOROM_OEM \fP\fP
+An object defined by OEM. 
+.TP
+\fB\fINVML_INFOROM_ECC \fP\fP
+The ECC object determining the level of ECC support. 
+.TP
+\fB\fINVML_INFOROM_POWER \fP\fP
+The power management object. 
+.TP
+\fB\fINVML_INFOROM_COUNT \fP\fP
+This counts the number of infoROM objects the driver knows about. 
+.SS "enum \fBnvmlMemoryErrorType_t\fP"
+.PP
+Memory error types 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fINVML_MEMORY_ERROR_TYPE_CORRECTED \fP\fP
+A memory error that was corrected
+.PP
+For ECC errors, these are single bit errors For Texture memory, these are errors fixed by resend 
+.TP
+\fB\fINVML_MEMORY_ERROR_TYPE_UNCORRECTED \fP\fP
+A memory error that was not corrected
+.PP
+For ECC errors, these are double bit errors For Texture memory, these are errors where the resend fails 
+.TP
+\fB\fINVML_MEMORY_ERROR_TYPE_COUNT \fP\fP
+Count of memory error types. 
+.SS "enum \fBnvmlMemoryLocation_t\fP"
+.PP
+Memory locations
+.PP
+See \fBnvmlDeviceGetMemoryErrorCounter\fP 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fINVML_MEMORY_LOCATION_L1_CACHE \fP\fP
+GPU L1 Cache. 
+.TP
+\fB\fINVML_MEMORY_LOCATION_L2_CACHE \fP\fP
+GPU L2 Cache. 
+.TP
+\fB\fINVML_MEMORY_LOCATION_DEVICE_MEMORY \fP\fP
+GPU Device Memory. 
+.TP
+\fB\fINVML_MEMORY_LOCATION_REGISTER_FILE \fP\fP
+GPU Register File. 
+.TP
+\fB\fINVML_MEMORY_LOCATION_TEXTURE_MEMORY \fP\fP
+GPU Texture Memory. 
+.TP
+\fB\fINVML_MEMORY_LOCATION_COUNT \fP\fP
+This counts the number of memory locations the driver knows about. 
+.SS "enum \fBnvmlPstates_t\fP"
+.PP
+Allowed PStates. 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fINVML_PSTATE_0 \fP\fP
+Performance state 0 -- Maximum Performance. 
+.TP
+\fB\fINVML_PSTATE_1 \fP\fP
+Performance state 1. 
+.TP
+\fB\fINVML_PSTATE_2 \fP\fP
+Performance state 2. 
+.TP
+\fB\fINVML_PSTATE_3 \fP\fP
+Performance state 3. 
+.TP
+\fB\fINVML_PSTATE_4 \fP\fP
+Performance state 4. 
+.TP
+\fB\fINVML_PSTATE_5 \fP\fP
+Performance state 5. 
+.TP
+\fB\fINVML_PSTATE_6 \fP\fP
+Performance state 6. 
+.TP
+\fB\fINVML_PSTATE_7 \fP\fP
+Performance state 7. 
+.TP
+\fB\fINVML_PSTATE_8 \fP\fP
+Performance state 8. 
+.TP
+\fB\fINVML_PSTATE_9 \fP\fP
+Performance state 9. 
+.TP
+\fB\fINVML_PSTATE_10 \fP\fP
+Performance state 10. 
+.TP
+\fB\fINVML_PSTATE_11 \fP\fP
+Performance state 11. 
+.TP
+\fB\fINVML_PSTATE_12 \fP\fP
+Performance state 12. 
+.TP
+\fB\fINVML_PSTATE_13 \fP\fP
+Performance state 13. 
+.TP
+\fB\fINVML_PSTATE_14 \fP\fP
+Performance state 14. 
+.TP
+\fB\fINVML_PSTATE_15 \fP\fP
+Performance state 15 -- Minimum Performance. 
+.TP
+\fB\fINVML_PSTATE_UNKNOWN \fP\fP
+Unknown performance state. 
+.SS "enum \fBnvmlReturn_t\fP"
+.PP
+Return values for NVML API calls. 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fINVML_SUCCESS \fP\fP
+The operation was successful. 
+.TP
+\fB\fINVML_ERROR_UNINITIALIZED \fP\fP
+NVML was not first initialized with \fBnvmlInit()\fP. 
+.TP
+\fB\fINVML_ERROR_INVALID_ARGUMENT \fP\fP
+A supplied argument is invalid. 
+.TP
+\fB\fINVML_ERROR_NOT_SUPPORTED \fP\fP
+The requested operation is not available on target device. 
+.TP
+\fB\fINVML_ERROR_NO_PERMISSION \fP\fP
+The current user does not have permission for operation. 
+.TP
+\fB\fINVML_ERROR_ALREADY_INITIALIZED \fP\fP
+Deprecated: Multiple initializations are now allowed through ref counting. 
+.TP
+\fB\fINVML_ERROR_NOT_FOUND \fP\fP
+A query to find an object was unsuccessful. 
+.TP
+\fB\fINVML_ERROR_INSUFFICIENT_SIZE \fP\fP
+An input argument is not large enough. 
+.TP
+\fB\fINVML_ERROR_INSUFFICIENT_POWER \fP\fP
+A device's external power cables are not properly attached. 
+.TP
+\fB\fINVML_ERROR_DRIVER_NOT_LOADED \fP\fP
+NVIDIA driver is not loaded. 
+.TP
+\fB\fINVML_ERROR_TIMEOUT \fP\fP
+User provided timeout passed. 
+.TP
+\fB\fINVML_ERROR_IRQ_ISSUE \fP\fP
+NVIDIA Kernel detected an interrupt issue with a GPU. 
+.TP
+\fB\fINVML_ERROR_LIBRARY_NOT_FOUND \fP\fP
+NVML Shared Library couldn't be found or loaded. 
+.TP
+\fB\fINVML_ERROR_FUNCTION_NOT_FOUND \fP\fP
+Local version of NVML doesn't implement this function. 
+.TP
+\fB\fINVML_ERROR_CORRUPTED_INFOROM \fP\fP
+infoROM is corrupted 
+.TP
+\fB\fINVML_ERROR_UNKNOWN \fP\fP
+An internal driver error occurred. 
+.SS "enum \fBnvmlTemperatureSensors_t\fP"
+.PP
+Temperature sensors. 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fINVML_TEMPERATURE_GPU \fP\fP
+Temperature sensor for the GPU die. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NVML from the source code.

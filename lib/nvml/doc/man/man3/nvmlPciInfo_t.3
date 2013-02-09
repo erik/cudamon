@@ -1,0 +1,45 @@
+.TH "nvmlPciInfo_t" 3 "8 Jan 2013" "Version 1.1" "NVML" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+nvmlPciInfo_t \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <nvml.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "char \fBbusId\fP [16]"
+.br
+.RI "\fIThe tuple domain:bus:device.function PCI identifier (& NULL terminator). \fP"
+.ti -1c
+.RI "unsigned int \fBdomain\fP"
+.br
+.RI "\fIThe PCI domain on which the device's bus resides, 0 to 0xffff. \fP"
+.ti -1c
+.RI "unsigned int \fBbus\fP"
+.br
+.RI "\fIThe bus on which the device resides, 0 to 0xff. \fP"
+.ti -1c
+.RI "unsigned int \fBdevice\fP"
+.br
+.RI "\fIThe device's id on the bus, 0 to 31. \fP"
+.ti -1c
+.RI "unsigned int \fBpciDeviceId\fP"
+.br
+.RI "\fIThe combined 16-bit device id and 16-bit vendor id. \fP"
+.ti -1c
+.RI "unsigned int \fBpciSubSystemId\fP"
+.br
+.RI "\fIThe 32-bit Sub System Device ID. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+PCI information about a GPU device. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NVML from the source code.

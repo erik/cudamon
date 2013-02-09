@@ -1,0 +1,29 @@
+.TH "nvmlUtilization_t" 3 "8 Jan 2013" "Version 1.1" "NVML" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+nvmlUtilization_t \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <nvml.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "unsigned int \fBgpu\fP"
+.br
+.RI "\fIPercent of time over the past second during which one or more kernels was executing on the GPU. \fP"
+.ti -1c
+.RI "unsigned int \fBmemory\fP"
+.br
+.RI "\fIPercent of time over the past second during which global (device) memory was being read or written. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Utilization information for a device. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NVML from the source code.

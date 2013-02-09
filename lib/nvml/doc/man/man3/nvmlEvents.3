@@ -1,0 +1,238 @@
+.TH "Event Handling Methods" 3 "8 Jan 2013" "Version 1.1" "NVML" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Event Handling Methods \- 
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBnvmlEventData_t\fP"
+.br
+.in -1c
+.SS "Modules"
+
+.in +1c
+.ti -1c
+.RI "\fBEvent Types\fP"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct nvmlEventSet_st * \fBnvmlEventSet_t\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlEventSetCreate\fP (\fBnvmlEventSet_t\fP *set)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceRegisterEvents\fP (nvmlDevice_t device, unsigned long long eventTypes, \fBnvmlEventSet_t\fP set)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetSupportedEventTypes\fP (nvmlDevice_t device, unsigned long long *eventTypes)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlEventSetWait\fP (\fBnvmlEventSet_t\fP set, \fBnvmlEventData_t\fP *data, unsigned int timeoutms)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlEventSetFree\fP (\fBnvmlEventSet_t\fP set)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+This chapter describes methods that NVML can perform against each device to register and wait for some event to occur. 
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct nvmlEventSet_st* \fBnvmlEventSet_t\fP"
+.PP
+Handle to an event set 
+.SH "Function Documentation"
+.PP 
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetSupportedEventTypes (nvmlDevice_t device, unsigned long long * eventTypes)"
+.PP
+Returns information about events supported on device
+.PP
+For all products.
+.PP
+Events are not supported on Windows. So this function returns an empty mask in \fIeventTypes\fP on Windows.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIeventTypes\fP Reference in which to return bitmask of supported events
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if the eventTypes has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIeventType\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBEvent Types\fP 
+.PP
+\fBnvmlDeviceRegisterEvents\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceRegisterEvents (nvmlDevice_t device, unsigned long long eventTypes, \fBnvmlEventSet_t\fP set)"
+.PP
+Starts recording of events on a specified devices and add the events to specified \fBnvmlEventSet_t\fP
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families. Ecc events are available only on ECC enabled devices (see \fBnvmlDeviceGetTotalEccErrors\fP) Power capping events are available only on Power Management enabled devices (see \fBnvmlDeviceGetPowerManagementMode\fP)
+.PP
+For Linux only.
+.PP
+\fBIMPORTANT:\fP Operations on \fIset\fP are not thread safe
+.PP
+This call starts recording of events on specific device. All events that occurred before this call are not recorded. Checking if some event occurred can be done with \fBnvmlEventSetWait\fP
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIeventTypes\fP Bitmask of \fBEvent Types\fP to record 
+.br
+\fIset\fP Set to which add new event types
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if the event has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIeventTypes\fP is invalid or \fIset\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the platform does not support this feature or some of requested event types
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBEvent Types\fP 
+.PP
+\fBnvmlDeviceGetSupportedEventTypes\fP 
+.PP
+\fBnvmlEventSetWait\fP 
+.PP
+\fBnvmlEventSetFree\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlEventSetCreate (\fBnvmlEventSet_t\fP * set)"
+.PP
+Create an empty set of events. Event set should be freed by \fBnvmlEventSetFree\fP
+.PP
+\fBParameters:\fP
+.RS 4
+\fIset\fP Reference in which to return the event handle
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if the event has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIset\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlEventSetFree\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlEventSetFree (\fBnvmlEventSet_t\fP set)"
+.PP
+Releases events in the set
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIset\fP Reference to events to be released
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if the event has been successfully released
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceRegisterEvents\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlEventSetWait (\fBnvmlEventSet_t\fP set, \fBnvmlEventData_t\fP * data, unsigned int timeoutms)"
+.PP
+Waits on events and delivers events
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families.
+.PP
+If some events are ready to be delivered at the time of the call, function returns immediately. If there are no events ready to be delivered, function sleeps till event arrives but not longer than specified timeout. This function in certain conditions can return before specified timeout passes (e.g. when interrupt arrives)
+.PP
+\fBParameters:\fP
+.RS 4
+\fIset\fP Reference to set of events to wait on 
+.br
+\fIdata\fP Reference in which to return event data 
+.br
+\fItimeoutms\fP Maximum amount of wait time in milliseconds for registered event
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if the data has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdata\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_TIMEOUT\fP if no event arrived in specified timeout or interrupt arrived
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBEvent Types\fP 
+.PP
+\fBnvmlDeviceRegisterEvents\fP 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NVML from the source code.

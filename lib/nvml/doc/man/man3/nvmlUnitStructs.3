@@ -1,0 +1,66 @@
+.TH "Unit Structs" 3 "8 Jan 2013" "Version 1.1" "NVML" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Unit Structs \- 
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBnvmlHwbcEntry_t\fP"
+.br
+.ti -1c
+.RI "struct \fBnvmlLedState_t\fP"
+.br
+.ti -1c
+.RI "struct \fBnvmlUnitInfo_t\fP"
+.br
+.ti -1c
+.RI "struct \fBnvmlPSUInfo_t\fP"
+.br
+.ti -1c
+.RI "struct \fBnvmlUnitFanInfo_t\fP"
+.br
+.ti -1c
+.RI "struct \fBnvmlUnitFanSpeeds_t\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBnvmlFanState_t\fP { \fBNVML_FAN_NORMAL\fP =  0, \fBNVML_FAN_FAILED\fP =  1 }"
+.br
+.ti -1c
+.RI "enum \fBnvmlLedColor_t\fP { \fBNVML_LED_COLOR_GREEN\fP =  0, \fBNVML_LED_COLOR_AMBER\fP =  1 }"
+.br
+.in -1c
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBnvmlFanState_t\fP"
+.PP
+Fan state enum. 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fINVML_FAN_NORMAL \fP\fP
+Fan is working properly. 
+.TP
+\fB\fINVML_FAN_FAILED \fP\fP
+Fan has failed. 
+.SS "enum \fBnvmlLedColor_t\fP"
+.PP
+Led color enum. 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fINVML_LED_COLOR_GREEN \fP\fP
+GREEN, indicates good health. 
+.TP
+\fB\fINVML_LED_COLOR_AMBER \fP\fP
+AMBER, indicates problem. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NVML from the source code.

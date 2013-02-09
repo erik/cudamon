@@ -1,0 +1,67 @@
+.TH "Initialization and Cleanup" 3 "8 Jan 2013" "Version 1.1" "NVML" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Initialization and Cleanup \- 
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlInit\fP (void)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlShutdown\fP (void)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+This chapter describes the methods that handle NVML initialization and cleanup. It is the user's responsibility to call \fBnvmlInit()\fP before calling any other methods, and \fBnvmlShutdown()\fP once NVML is no longer being used. 
+.SH "Function Documentation"
+.PP 
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlInit (void)"
+.PP
+Initialize NVML by discovering and attaching to all GPU devices in the system.
+.PP
+For all products.
+.PP
+This method should be called once before invoking any other methods in the library. A reference count of the number of initializations is maintained. Shutdown only occurs when the reference count reaches zero.
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if NVML has been properly initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_NO_PERMISSION\fP if the user doesn't have permission to talk to any device
+.IP "\(bu" 2
+\fBNVML_ERROR_DRIVER_NOT_LOADED\fP if NVIDIA driver is not running
+.IP "\(bu" 2
+\fBNVML_ERROR_INSUFFICIENT_POWER\fP if any devices have improperly attached external power cables
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlShutdown (void)"
+.PP
+Shut down NVML by releasing all GPU resources previously allocated with \fBnvmlInit()\fP.
+.PP
+For all products.
+.PP
+This method should be called after NVML work is done, once for each call to \fBnvmlInit()\fP A reference count of the number of initializations is maintained. Shutdown only occurs when the reference count reaches zero. For backwards compatibility, no error is reported if \fBnvmlShutdown()\fP is called more times than \fBnvmlInit()\fP.
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if NVML has been properly shut down
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NVML from the source code.

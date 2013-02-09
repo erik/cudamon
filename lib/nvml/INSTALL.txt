@@ -1,0 +1,24 @@
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Tesla Deployment Kit
+Installation Guide
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+Installing the NVML SDK
+--------------------------
+doc/
+  nvml.pdf: If desired, copy to a site specific location
+  man/: If desired, these files may be copied to a the system's man page
+        directory I.E. /usr/share/man/man3/ or /usr/local/share/man/man3/
+
+example/: Does not need to be installed
+
+include/
+  nvml.h: Copy to a site specific include directory
+
+lib/, lib64/: Copy to a site specific lib directory for linking.  Needed when
+              the build machine doesn't have a compatible version of the
+              NVIDIA display driver installed.  These files should not
+              overwrite the files with the same names in /usr/lib[64].
+

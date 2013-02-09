@@ -1,0 +1,58 @@
+.TH "nvmlPSUInfo_t" 3 "8 Jan 2013" "Version 1.1" "NVML" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+nvmlPSUInfo_t \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <nvml.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "char \fBstate\fP [256]"
+.br
+.RI "\fIThe power supply state. \fP"
+.ti -1c
+.RI "unsigned int \fBcurrent\fP"
+.br
+.RI "\fIPSU current (A). \fP"
+.ti -1c
+.RI "unsigned int \fBvoltage\fP"
+.br
+.RI "\fIPSU voltage (V). \fP"
+.ti -1c
+.RI "unsigned int \fBpower\fP"
+.br
+.RI "\fIPSU power draw (W). \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Power usage information for an S-class unit. The power supply state is a human readable string that equals 'Normal' or contains a combination of 'Abnormal' plus one or more of the following:
+.PP
+.IP "\(bu" 2
+High voltage
+.IP "\(bu" 2
+Fan failure
+.IP "\(bu" 2
+Heatsink temperature
+.IP "\(bu" 2
+Current limit
+.IP "\(bu" 2
+Voltage below UV alarm threshold
+.IP "\(bu" 2
+Low-voltage
+.IP "\(bu" 2
+SI2C remote off command
+.IP "\(bu" 2
+MOD_DISABLE input
+.IP "\(bu" 2
+Short pin transition 
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NVML from the source code.

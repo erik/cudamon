@@ -1,0 +1,117 @@
+.TH "System Queries" 3 "8 Jan 2013" "Version 1.1" "NVML" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+System Queries \- 
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlSystemGetDriverVersion\fP (char *version, unsigned int length)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlSystemGetNVMLVersion\fP (char *version, unsigned int length)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlSystemGetProcessName\fP (unsigned int pid, char *name, unsigned int length)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+This chapter describes the queries that NVML can perform against the local system. These queries are not device-specific. 
+.SH "Function Documentation"
+.PP 
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlSystemGetDriverVersion (char * version, unsigned int length)"
+.PP
+Retrieves the version of the system's graphics driver.
+.PP
+For all products.
+.PP
+The version identifier is an alphanumeric string. It will not exceed 80 characters in length (including the NULL terminator). See \fBnvmlConstants::NVML_SYSTEM_DRIVER_VERSION_BUFFER_SIZE\fP.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIversion\fP Reference in which to return the version identifier 
+.br
+\fIlength\fP The maximum allowed length of the string returned in \fIversion\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIversion\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIversion\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_INSUFFICIENT_SIZE\fP if \fIlength\fP is too small 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlSystemGetNVMLVersion (char * version, unsigned int length)"
+.PP
+Retrieves the version of the NVML library.
+.PP
+For all products.
+.PP
+The version identifier is an alphanumeric string. It will not exceed 80 characters in length (including the NULL terminator). See \fBnvmlConstants::NVML_SYSTEM_NVML_VERSION_BUFFER_SIZE\fP.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIversion\fP Reference in which to return the version identifier 
+.br
+\fIlength\fP The maximum allowed length of the string returned in \fIversion\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIversion\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIversion\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_INSUFFICIENT_SIZE\fP if \fIlength\fP is too small 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlSystemGetProcessName (unsigned int pid, char * name, unsigned int length)"
+.PP
+Gets name of the process with provided process id
+.PP
+For all products.
+.PP
+Returned process name is cropped to provided length. name string is encoded in ANSI.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpid\fP The identifier of the process 
+.br
+\fIname\fP Reference in which to return the process name 
+.br
+\fIlength\fP The maximum allowed length of the string returned in \fIname\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIname\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIname\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_FOUND\fP if process doesn't exists
+.IP "\(bu" 2
+\fBNVML_ERROR_NO_PERMISSION\fP if the user doesn't have permission to perform this operation
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NVML from the source code.

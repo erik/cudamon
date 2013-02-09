@@ -1,0 +1,33 @@
+.TH "nvmlMemory_t" 3 "8 Jan 2013" "Version 1.1" "NVML" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+nvmlMemory_t \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <nvml.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "unsigned long long \fBtotal\fP"
+.br
+.RI "\fITotal installed FB memory (in bytes). \fP"
+.ti -1c
+.RI "unsigned long long \fBfree\fP"
+.br
+.RI "\fIUnallocated FB memory (in bytes). \fP"
+.ti -1c
+.RI "unsigned long long \fBused\fP"
+.br
+.RI "\fIAllocated FB memory (in bytes). Note that the driver/GPU always sets aside a small amount of memory for bookkeeping. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Memory allocation information for a device. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NVML from the source code.

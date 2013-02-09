@@ -1,0 +1,44 @@
+.TH "nvmlEccErrorCounts_t" 3 "8 Jan 2013" "Version 1.1" "NVML" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+nvmlEccErrorCounts_t \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <nvml.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "unsigned long long \fBl1Cache\fP"
+.br
+.RI "\fIL1 cache errors. \fP"
+.ti -1c
+.RI "unsigned long long \fBl2Cache\fP"
+.br
+.RI "\fIL2 cache errors. \fP"
+.ti -1c
+.RI "unsigned long long \fBdeviceMemory\fP"
+.br
+.RI "\fIDevice memory errors. \fP"
+.ti -1c
+.RI "unsigned long long \fBregisterFile\fP"
+.br
+.RI "\fIRegister file errors. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Detailed ECC error counts for a device.
+.PP
+\fBDeprecated\fP
+.RS 4
+Different GPU families can have different memory error counters See \fBnvmlDeviceGetMemoryErrorCounter\fP 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NVML from the source code.

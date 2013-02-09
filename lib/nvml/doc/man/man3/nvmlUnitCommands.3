@@ -1,0 +1,62 @@
+.TH "Unit Commands" 3 "8 Jan 2013" "Version 1.1" "NVML" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Unit Commands \- 
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlUnitSetLedState\fP (nvmlUnit_t unit, \fBnvmlLedColor_t\fP color)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+This chapter describes NVML operations that change the state of the unit. For S-class products. Each of these requires root/admin access. Non-admin users will see an NVML_ERROR_NO_PERMISSION error code when invoking any of these methods. 
+.SH "Function Documentation"
+.PP 
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlUnitSetLedState (nvmlUnit_t unit, \fBnvmlLedColor_t\fP color)"
+.PP
+Set the LED state for the unit. The LED can be either green (0) or amber (1).
+.PP
+For S-class products. Requires root/admin permissions.
+.PP
+This operation takes effect immediately.
+.PP
+\fBCurrent S-Class products don't provide unique LEDs for each unit. As such, both front and back LEDs will be toggled in unison regardless of which unit is specified with this command.\fP
+.PP
+See \fBnvmlLedColor_t\fP for available colors.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIunit\fP The identifier of the target unit 
+.br
+\fIcolor\fP The target LED color
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if the LED color has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIunit\fP or \fIcolor\fP is invalid
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if this is not an S-class product
+.IP "\(bu" 2
+\fBNVML_ERROR_NO_PERMISSION\fP if the user doesn't have permission to perform this operation
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlUnitGetLedState()\fP 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NVML from the source code.

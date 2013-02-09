@@ -1,0 +1,1867 @@
+.TH "Device Queries" 3 "8 Jan 2013" "Version 1.1" "NVML" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Device Queries \- 
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetCount\fP (unsigned int *deviceCount)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetHandleByIndex\fP (unsigned int index, nvmlDevice_t *device)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetHandleBySerial\fP (const char *serial, nvmlDevice_t *device)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetHandleByUUID\fP (const char *uuid, nvmlDevice_t *device)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetHandleByPciBusId\fP (const char *pciBusId, nvmlDevice_t *device)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetName\fP (nvmlDevice_t device, char *name, unsigned int length)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetSerial\fP (nvmlDevice_t device, char *serial, unsigned int length)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetUUID\fP (nvmlDevice_t device, char *uuid, unsigned int length)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetInforomVersion\fP (nvmlDevice_t device, \fBnvmlInforomObject_t\fP object, char *version, unsigned int length)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetInforomImageVersion\fP (nvmlDevice_t device, char *version, unsigned int length)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetInforomConfigurationChecksum\fP (nvmlDevice_t device, unsigned int *checksum)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceValidateInforom\fP (nvmlDevice_t device)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetDisplayMode\fP (nvmlDevice_t device, \fBnvmlEnableState_t\fP *display)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetPersistenceMode\fP (nvmlDevice_t device, \fBnvmlEnableState_t\fP *mode)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetPciInfo\fP (nvmlDevice_t device, \fBnvmlPciInfo_t\fP *pci)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetMaxPcieLinkGeneration\fP (nvmlDevice_t device, unsigned int *maxLinkGen)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetMaxPcieLinkWidth\fP (nvmlDevice_t device, unsigned int *maxLinkWidth)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetCurrPcieLinkGeneration\fP (nvmlDevice_t device, unsigned int *currLinkGen)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetCurrPcieLinkWidth\fP (nvmlDevice_t device, unsigned int *currLinkWidth)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetClockInfo\fP (nvmlDevice_t device, \fBnvmlClockType_t\fP type, unsigned int *clock)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetMaxClockInfo\fP (nvmlDevice_t device, \fBnvmlClockType_t\fP type, unsigned int *clock)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetApplicationsClock\fP (nvmlDevice_t device, \fBnvmlClockType_t\fP clockType, unsigned int *clockMHz)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceResetApplicationsClocks\fP (nvmlDevice_t device)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetSupportedMemoryClocks\fP (nvmlDevice_t device, unsigned int *count, unsigned int *clocksMHz)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetSupportedGraphicsClocks\fP (nvmlDevice_t device, unsigned int memoryClockMHz, unsigned int *count, unsigned int *clocksMHz)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetFanSpeed\fP (nvmlDevice_t device, unsigned int *speed)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetTemperature\fP (nvmlDevice_t device, \fBnvmlTemperatureSensors_t\fP sensorType, unsigned int *temp)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetPerformanceState\fP (nvmlDevice_t device, \fBnvmlPstates_t\fP *pState)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetCurrentClocksThrottleReasons\fP (nvmlDevice_t device, unsigned long long *clocksThrottleReasons)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetSupportedClocksThrottleReasons\fP (nvmlDevice_t device, unsigned long long *supportedClocksThrottleReasons)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetPowerState\fP (nvmlDevice_t device, \fBnvmlPstates_t\fP *pState)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetPowerManagementMode\fP (nvmlDevice_t device, \fBnvmlEnableState_t\fP *mode)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetPowerManagementLimit\fP (nvmlDevice_t device, unsigned int *limit)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetPowerManagementLimitConstraints\fP (nvmlDevice_t device, unsigned int *minLimit, unsigned int *maxLimit)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetPowerManagementDefaultLimit\fP (nvmlDevice_t device, unsigned int *defaultLimit)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetPowerUsage\fP (nvmlDevice_t device, unsigned int *power)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetGpuOperationMode\fP (nvmlDevice_t device, \fBnvmlGpuOperationMode_t\fP *current, \fBnvmlGpuOperationMode_t\fP *pending)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetMemoryInfo\fP (nvmlDevice_t device, \fBnvmlMemory_t\fP *memory)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetComputeMode\fP (nvmlDevice_t device, \fBnvmlComputeMode_t\fP *mode)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetEccMode\fP (nvmlDevice_t device, \fBnvmlEnableState_t\fP *current, \fBnvmlEnableState_t\fP *pending)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetTotalEccErrors\fP (nvmlDevice_t device, \fBnvmlMemoryErrorType_t\fP errorType, \fBnvmlEccCounterType_t\fP counterType, unsigned long long *eccCounts)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetDetailedEccErrors\fP (nvmlDevice_t device, \fBnvmlMemoryErrorType_t\fP errorType, \fBnvmlEccCounterType_t\fP counterType, \fBnvmlEccErrorCounts_t\fP *eccCounts)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetMemoryErrorCounter\fP (nvmlDevice_t device, \fBnvmlMemoryErrorType_t\fP errorType, \fBnvmlEccCounterType_t\fP counterType, \fBnvmlMemoryLocation_t\fP locationType, unsigned long long *count)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetUtilizationRates\fP (nvmlDevice_t device, \fBnvmlUtilization_t\fP *utilization)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetDriverModel\fP (nvmlDevice_t device, \fBnvmlDriverModel_t\fP *current, \fBnvmlDriverModel_t\fP *pending)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetVbiosVersion\fP (nvmlDevice_t device, char *version, unsigned int length)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceGetComputeRunningProcesses\fP (nvmlDevice_t device, unsigned int *infoCount, \fBnvmlProcessInfo_t\fP *infos)"
+.br
+.ti -1c
+.RI "\fBnvmlReturn_t\fP DECLDIR \fBnvmlDeviceOnSameBoard\fP (nvmlDevice_t device1, nvmlDevice_t device2, int *onSameBoard)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+This chapter describes that queries that NVML can perform against each device. In each case the device is identified with an nvmlDevice_t handle. This handle is obtained by calling one of \fBnvmlDeviceGetHandleByIndex()\fP, \fBnvmlDeviceGetHandleBySerial()\fP or \fBnvmlDeviceGetHandleByPciBusId()\fP. 
+.SH "Function Documentation"
+.PP 
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetApplicationsClock (nvmlDevice_t device, \fBnvmlClockType_t\fP clockType, unsigned int * clockMHz)"
+.PP
+Retrieves the clock that applications will use unless an overspec situation occurs. Can be changed using \fBnvmlDeviceSetApplicationsClocks\fP.
+.PP
+For Tesla (TM) products, and Quadro (R) products from the Kepler family.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIclockType\fP Identify which clock domain to query 
+.br
+\fIclockMHz\fP Reference in which to return the clock in MHz
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if new settings were successfully set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_FOUND\fP if the max clock limit is not set
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIclockMHz\fP is NULL or \fIclockType\fP is invalid
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device cannot report the specified clock
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetClockInfo (nvmlDevice_t device, \fBnvmlClockType_t\fP type, unsigned int * clock)"
+.PP
+Retrieves the current clock speeds for the device.
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families.
+.PP
+See \fBnvmlClockType_t\fP for details on available clock information.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fItype\fP Identify which clock domain to query 
+.br
+\fIclock\fP Reference in which to return the clock speed in MHz
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIclock\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIclock\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device cannot report the specified clock
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetComputeMode (nvmlDevice_t device, \fBnvmlComputeMode_t\fP * mode)"
+.PP
+Retrieves the current compute mode for the device.
+.PP
+For all CUDA-capable products.
+.PP
+See \fBnvmlComputeMode_t\fP for details on allowed compute modes.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fImode\fP Reference in which to return the current compute mode
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fImode\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fImode\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceSetComputeMode()\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetComputeRunningProcesses (nvmlDevice_t device, unsigned int * infoCount, \fBnvmlProcessInfo_t\fP * infos)"
+.PP
+Get information about processes with a compute context on a device
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families.
+.PP
+This function returns information only about compute running processes (e.g. CUDA application which have active context). Any graphics applications (e.g. using OpenGL, DirectX) won't be listed by this function.
+.PP
+To query the current number of running compute processes, call this function with *infoCount = 0. The return code will be NVML_ERROR_INSUFFICIENT_SIZE, or NVML_SUCCESS if none are running. For this call \fIinfos\fP is allowed to be NULL.
+.PP
+Keep in mind that information returned by this call is dynamic and the number of elements might change in time. Allocate more space for \fIinfos\fP table in case new compute processes are spawned.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIinfoCount\fP Reference in which to provide the \fIinfos\fP array size, and to return the number of returned elements 
+.br
+\fIinfos\fP Reference in which to return the process information
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIinfoCount\fP and \fIinfos\fP have been populated
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INSUFFICIENT_SIZE\fP if \fIinfoCount\fP indicates that the \fIinfos\fP array is too small \fIinfoCount\fP will contain minimal amount of space necessary for the call to complete
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid, either of \fIinfoCount\fP or \fIinfos\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlSystemGetProcessName\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetCount (unsigned int * deviceCount)"
+.PP
+Retrieves the number of compute devices in the system. A compute device is a single GPU.
+.PP
+For all products.
+.PP
+On some platforms not all devices may be accessible due to permission restrictions. In these cases the device count will reflect only the GPUs that NVML can access.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdeviceCount\fP Reference in which to return the number of accessible devices
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIdeviceCount\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdeviceCount\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetCurrentClocksThrottleReasons (nvmlDevice_t device, unsigned long long * clocksThrottleReasons)"
+.PP
+Retrieves current clocks throttling reasons.
+.PP
+For Tesla (TM) products from Kepler family.
+.PP
+\fBNote:\fP
+.RS 4
+More than one bit can be enabled at the same time. Multiple reasons can be affecting clocks at once.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIclocksThrottleReasons\fP Reference in which to return bitmask of active clocks throttle reasons
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIclocksThrottleReasons\fP has been returned successfully
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIclocksThrottleReasons\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBNvmlClocksThrottleReasons\fP 
+.PP
+\fBnvmlDeviceGetSupportedClocksThrottleReasons\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetCurrPcieLinkGeneration (nvmlDevice_t device, unsigned int * currLinkGen)"
+.PP
+Retrieves the current PCIe link generation
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIcurrLinkGen\fP Reference in which to return the max PCIe link generation
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIcurrLinkGen\fP has been populated
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIcurrLinkGen\fP is null
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if PCIe link information is not available
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetCurrPcieLinkWidth (nvmlDevice_t device, unsigned int * currLinkWidth)"
+.PP
+Retrieves the current PCIe link width
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIcurrLinkWidth\fP Reference in which to return the max PCIe link generation
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIcurrLinkWidth\fP has been populated
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIcurrLinkWidth\fP is null
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if PCIe link information is not available
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetDetailedEccErrors (nvmlDevice_t device, \fBnvmlMemoryErrorType_t\fP errorType, \fBnvmlEccCounterType_t\fP counterType, \fBnvmlEccErrorCounts_t\fP * eccCounts)"
+.PP
+Retrieves the detailed ECC error counts for the device.
+.PP
+\fBDeprecated\fP
+.RS 4
+This API supports only a fixed set of ECC error locations On different GPU architectures different locations are supported See \fBnvmlDeviceGetMemoryErrorCounter\fP
+.RE
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families. Requires \fINVML_INFOROM_ECC\fP version 2.0 or higher to report aggregate location-based ECC counts. Requires \fINVML_INFOROM_ECC\fP version 1.0 or higher to report all other ECC counts. Requires ECC Mode to be enabled.
+.PP
+Detailed errors provide separate ECC counts for specific parts of the memory system.
+.PP
+Reports zero for unsupported ECC error counters when a subset of ECC error counters are supported.
+.PP
+See \fBnvmlMemoryErrorType_t\fP for a description of available bit types.
+.br
+ See \fBnvmlEccCounterType_t\fP for a description of available counter types.
+.br
+ See \fBnvmlEccErrorCounts_t\fP for a description of provided detailed ECC counts.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIerrorType\fP Flag that specifies the type of the errors. 
+.br
+\fIcounterType\fP Flag that specifies the counter-type of the errors. 
+.br
+\fIeccCounts\fP Reference in which to return the specified ECC errors
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIeccCounts\fP has been populated
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP, \fIerrorType\fP or \fIcounterType\fP is invalid, or \fIeccCounts\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceClearEccErrorCounts()\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetDisplayMode (nvmlDevice_t device, \fBnvmlEnableState_t\fP * display)"
+.PP
+Retrieves the display mode for the device.
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families.
+.PP
+This method indicates whether a physical display is currently connected to the device.
+.PP
+See \fBnvmlEnableState_t\fP for details on allowed modes.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIdisplay\fP Reference in which to return the display mode
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIdisplay\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIdisplay\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetDriverModel (nvmlDevice_t device, \fBnvmlDriverModel_t\fP * current, \fBnvmlDriverModel_t\fP * pending)"
+.PP
+Retrieves the current and pending driver model for the device.
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families. For windows only.
+.PP
+On Windows platforms the device driver can run in either WDDM or WDM (TCC) mode. If a display is attached to the device it must run in WDDM mode. TCC mode is preferred if a display is not attached.
+.PP
+See \fBnvmlDriverModel_t\fP for details on available driver models.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIcurrent\fP Reference in which to return the current driver model 
+.br
+\fIpending\fP Reference in which to return the pending driver model
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIcurrent\fP and \fIpending\fP have been populated
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or both \fIcurrent\fP and \fIpending\fP are NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the platform is not windows
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceSetDriverModel()\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetEccMode (nvmlDevice_t device, \fBnvmlEnableState_t\fP * current, \fBnvmlEnableState_t\fP * pending)"
+.PP
+Retrieves the current and pending ECC modes for the device.
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families. Requires \fINVML_INFOROM_ECC\fP version 1.0 or higher.
+.PP
+Changing ECC modes requires a reboot. The 'pending' ECC mode refers to the target mode following the next reboot.
+.PP
+See \fBnvmlEnableState_t\fP for details on allowed modes.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIcurrent\fP Reference in which to return the current ECC mode 
+.br
+\fIpending\fP Reference in which to return the pending ECC mode
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIcurrent\fP and \fIpending\fP have been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or either \fIcurrent\fP or \fIpending\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceSetEccMode()\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetFanSpeed (nvmlDevice_t device, unsigned int * speed)"
+.PP
+Retrieves the intended operating speed of the device's fan.
+.PP
+Note: The reported speed is the intended fan speed. If the fan is physically blocked and unable to spin, the output will not match the actual fan speed.
+.PP
+For all discrete products with dedicated fans.
+.PP
+The fan speed is expressed as a percent of the maximum, i.e. full speed is 100%.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIspeed\fP Reference in which to return the fan speed percentage
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIspeed\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIspeed\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not have a fan
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetGpuOperationMode (nvmlDevice_t device, \fBnvmlGpuOperationMode_t\fP * current, \fBnvmlGpuOperationMode_t\fP * pending)"
+.PP
+Retrieves the current GOM and pending GOM (the one that GPU will switch to after reboot).
+.PP
+For GK110 M-class and X-class Tesla (TM) products from the Kepler family. Not supported on Quadro (R) and Tesla (TM) C-class products.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIcurrent\fP Reference in which to return the current GOM 
+.br
+\fIpending\fP Reference in which to return the pending GOM
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fImode\fP has been populated
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIcurrent\fP or \fIpending\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlGpuOperationMode_t\fP 
+.PP
+\fBnvmlDeviceSetGpuOperationMode\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetHandleByIndex (unsigned int index, nvmlDevice_t * device)"
+.PP
+Acquire the handle for a particular device, based on its index.
+.PP
+For all products.
+.PP
+Valid indices are derived from the \fIaccessibleDevices\fP count returned by \fBnvmlDeviceGetCount()\fP. For example, if \fIaccessibleDevices\fP is 2 the valid indices are 0 and 1, corresponding to GPU 0 and GPU 1.
+.PP
+The order in which NVML enumerates devices has no guarantees of consistency between reboots. For that reason it is recommended that devices be looked up by their PCI ids or board serial numbers. See \fBnvmlDeviceGetHandleBySerial()\fP and \fBnvmlDeviceGetHandleByPciBusId()\fP.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIindex\fP The index of the target GPU, >= 0 and < \fIaccessibleDevices\fP 
+.br
+\fIdevice\fP Reference in which to return the device handle
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIdevice\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIindex\fP is invalid or \fIdevice\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetHandleByPciBusId (const char * pciBusId, nvmlDevice_t * device)"
+.PP
+Acquire the handle for a particular device, based on its PCI bus id.
+.PP
+For all products.
+.PP
+This value corresponds to the \fBnvmlPciInfo_t::busId\fP returned by \fBnvmlDeviceGetPciInfo()\fP.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpciBusId\fP The PCI bus id of the target GPU 
+.br
+\fIdevice\fP Reference in which to return the device handle
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIdevice\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIpciBusId\fP is invalid or \fIdevice\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_FOUND\fP if \fIpciBusId\fP does not match a valid device on the system
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetHandleBySerial (const char * serial, nvmlDevice_t * device)"
+.PP
+Acquire the handle for a particular device, based on its board serial number.
+.PP
+For all products.
+.PP
+This number corresponds to the value printed directly on the board, and to the value returned by \fBnvmlDeviceGetSerial()\fP.
+.PP
+\fBDeprecated\fP
+.RS 4
+Since more than one GPU can exist on a single board this function is deprecated in favor of \fBnvmlDeviceGetHandleByUUID\fP. For dual GPU boards this function will return NVML_ERROR_INVALID_ARGUMENT.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIserial\fP The board serial number of the target GPU 
+.br
+\fIdevice\fP Reference in which to return the device handle
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIdevice\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIserial\fP is invalid, \fIdevice\fP is NULL or more than one device has the same serial (dual GPU boards)
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_FOUND\fP if \fIserial\fP does not match a valid device on the system
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceGetSerial\fP 
+.PP
+\fBnvmlDeviceGetHandleByUUID\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetHandleByUUID (const char * uuid, nvmlDevice_t * device)"
+.PP
+Acquire the handle for a particular device, based on its globally unique immutable UUID associated with each device.
+.PP
+For all products.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIuuid\fP The UUID of the target GPU 
+.br
+\fIdevice\fP Reference in which to return the device handle
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIdevice\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIuuid\fP is invalid or \fIdevice\fP is null
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_FOUND\fP if \fIuuid\fP does not match a valid device on the system
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceGetUUID\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetInforomConfigurationChecksum (nvmlDevice_t device, unsigned int * checksum)"
+.PP
+Retrieves the checksum of the configuration stored in the device's infoROM.
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families.
+.PP
+Can be used to make sure that two GPUs have the exact same configuration. Current checksum takes into account configuration stored in PWR and ECC infoROM objects. Checksum can change between driver releases or when user changes configuration (e.g. disable/enable ECC)
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIchecksum\fP Reference in which to return the infoROM configuration checksum
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIchecksum\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_CORRUPTED_INFOROM\fP if the device's checksum couldn't be retrieved due to infoROM corruption
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIchecksum\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetInforomImageVersion (nvmlDevice_t device, char * version, unsigned int length)"
+.PP
+Retrieves the global infoROM image version
+.PP
+For Tesla (TM) and Quadro (R) products from the Kepler family.
+.PP
+Image version just like VBIOS version uniquely describes the exact version of the infoROM flashed on the board in contrast to infoROM object version which is only an indicator of supported features. Version string will not exceed 16 characters in length (including the NULL terminator). See \fBnvmlConstants::NVML_DEVICE_INFOROM_VERSION_BUFFER_SIZE\fP.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIversion\fP Reference in which to return the infoROM image version 
+.br
+\fIlength\fP The maximum allowed length of the string returned in \fIversion\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIversion\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIversion\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_INSUFFICIENT_SIZE\fP if \fIlength\fP is too small
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not have an infoROM
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceGetInforomVersion\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetInforomVersion (nvmlDevice_t device, \fBnvmlInforomObject_t\fP object, char * version, unsigned int length)"
+.PP
+Retrieves the version information for the device's infoROM object.
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families.
+.PP
+Fermi and higher parts have non-volatile on-board memory for persisting device info, such as aggregate ECC counts. The version of the data structures in this memory may change from time to time. It will not exceed 16 characters in length (including the NULL terminator). See \fBnvmlConstants::NVML_DEVICE_INFOROM_VERSION_BUFFER_SIZE\fP.
+.PP
+See \fBnvmlInforomObject_t\fP for details on the available infoROM objects.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIobject\fP The target infoROM object 
+.br
+\fIversion\fP Reference in which to return the infoROM version 
+.br
+\fIlength\fP The maximum allowed length of the string returned in \fIversion\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIversion\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIversion\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_INSUFFICIENT_SIZE\fP if \fIlength\fP is too small
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not have an infoROM
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceGetInforomImageVersion\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetMaxClockInfo (nvmlDevice_t device, \fBnvmlClockType_t\fP type, unsigned int * clock)"
+.PP
+Retrieves the maximum clock speeds for the device.
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families.
+.PP
+See \fBnvmlClockType_t\fP for details on available clock information.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fItype\fP Identify which clock domain to query 
+.br
+\fIclock\fP Reference in which to return the clock speed in MHz
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIclock\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIclock\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device cannot report the specified clock
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetMaxPcieLinkGeneration (nvmlDevice_t device, unsigned int * maxLinkGen)"
+.PP
+Retrieves the maximum PCIe link generation possible with this device and system
+.PP
+I.E. for a generation 2 PCIe device attached to a generation 1 PCIe bus the max link generation this function will report is generation 1.
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fImaxLinkGen\fP Reference in which to return the max PCIe link generation
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fImaxLinkGen\fP has been populated
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fImaxLinkGen\fP is null
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if PCIe link information is not available
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetMaxPcieLinkWidth (nvmlDevice_t device, unsigned int * maxLinkWidth)"
+.PP
+Retrieves the maximum PCIe link width possible with this device and system
+.PP
+I.E. for a device with a 16x PCIe bus width attached to a 8x PCIe system bus this function will report a max link width of 8.
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fImaxLinkWidth\fP Reference in which to return the max PCIe link generation
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fImaxLinkWidth\fP has been populated
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fImaxLinkWidth\fP is null
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if PCIe link information is not available
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetMemoryErrorCounter (nvmlDevice_t device, \fBnvmlMemoryErrorType_t\fP errorType, \fBnvmlEccCounterType_t\fP counterType, \fBnvmlMemoryLocation_t\fP locationType, unsigned long long * count)"
+.PP
+Retrieves the requested memory error counter for the device.
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi family. Requires \fINVML_INFOROM_ECC\fP version 2.0 or higher to report aggregate location-based memory error counts. Requires \fINVML_INFOROM_ECC\fP version 1.0 or higher to report all other memory error counts.
+.PP
+For all Tesla (TM) and Quadro (R) products from the Kepler family.
+.PP
+Requires ECC Mode to be enabled.
+.PP
+See \fBnvmlMemoryErrorType_t\fP for a description of available memory error types.
+.br
+ See \fBnvmlEccCounterType_t\fP for a description of available counter types.
+.br
+ See \fBnvmlMemoryLocation_t\fP for a description of available counter locations.
+.br
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIerrorType\fP Flag that specifies the type of error. 
+.br
+\fIcounterType\fP Flag that specifies the counter-type of the errors. 
+.br
+\fIlocationType\fP Specifies the location of the counter. 
+.br
+\fIcount\fP Reference in which to return the ECC counter
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIcount\fP has been populated
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP, \fIbitTyp\fP,e \fIcounterType\fP or \fIlocationType\fP is invalid, or \fIcount\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support ECC error reporting in the specified memory
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetMemoryInfo (nvmlDevice_t device, \fBnvmlMemory_t\fP * memory)"
+.PP
+Retrieves the amount of used, free and total memory available on the device, in bytes.
+.PP
+For all products.
+.PP
+Enabling ECC reduces the amount of total available memory, due to the extra required parity bits. Under WDDM most device memory is allocated and managed on startup by Windows.
+.PP
+Under Linux and Windows TCC, the reported amount of used memory is equal to the sum of memory allocated by all active channels on the device.
+.PP
+See \fBnvmlMemory_t\fP for details on available memory info.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fImemory\fP Reference in which to return the memory information
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fImemory\fP has been populated
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fImemory\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetName (nvmlDevice_t device, char * name, unsigned int length)"
+.PP
+Retrieves the name of this device.
+.PP
+For all products.
+.PP
+The name is an alphanumeric string that denotes a particular product, e.g. Tesla (TM) C2070. It will not exceed 64 characters in length (including the NULL terminator). See \fBnvmlConstants::NVML_DEVICE_NAME_BUFFER_SIZE\fP.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIname\fP Reference in which to return the product name 
+.br
+\fIlength\fP The maximum allowed length of the string returned in \fIname\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIname\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid, or \fIname\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_INSUFFICIENT_SIZE\fP if \fIlength\fP is too small 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetPciInfo (nvmlDevice_t device, \fBnvmlPciInfo_t\fP * pci)"
+.PP
+Retrieves the PCI attributes of this device.
+.PP
+For all products.
+.PP
+See \fBnvmlPciInfo_t\fP for details on the available PCI info.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIpci\fP Reference in which to return the PCI info
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIpci\fP has been populated
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIpci\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetPerformanceState (nvmlDevice_t device, \fBnvmlPstates_t\fP * pState)"
+.PP
+Retrieves the current performance state for the device.
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families.
+.PP
+See \fBnvmlPstates_t\fP for details on allowed performance states.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIpState\fP Reference in which to return the performance state reading
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIpState\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIpState\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetPersistenceMode (nvmlDevice_t device, \fBnvmlEnableState_t\fP * mode)"
+.PP
+Retrieves the persistence mode associated with this device.
+.PP
+For all CUDA-capable products. For Linux only.
+.PP
+When driver persistence mode is enabled the driver software state is not torn down when the last client disconnects. By default this feature is disabled.
+.PP
+See \fBnvmlEnableState_t\fP for details on allowed modes.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fImode\fP Reference in which to return the current driver persistence mode
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fImode\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fImode\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceSetPersistenceMode()\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetPowerManagementDefaultLimit (nvmlDevice_t device, unsigned int * defaultLimit)"
+.PP
+Retrieves default power management limit on this device, in milliwatts. Default power management limit is a power management limit that the device boots with.
+.PP
+For Tesla (TM) and Quadro (R) products from the Kepler family.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIdefaultLimit\fP Reference in which to return the default power management limit in milliwatts
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIdefaultLimit\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIdefaultLimit\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetPowerManagementLimit (nvmlDevice_t device, unsigned int * limit)"
+.PP
+Retrieves the power management limit associated with this device.
+.PP
+For 'GF11x' Tesla (TM) and Quadro (R) products from the Fermi family.
+.IP "\(bu" 2
+Requires \fINVML_INFOROM_POWER\fP version 3.0 or higher.
+.PP
+.PP
+For Tesla (TM) and Quadro (R) products from the Kepler family.
+.IP "\(bu" 2
+Does not require \fINVML_INFOROM_POWER\fP object.
+.PP
+.PP
+The power limit defines the upper boundary for the card's power draw. If the card's total power draw reaches this limit the power management algorithm kicks in.
+.PP
+This reading is only available if power management mode is supported. See \fBnvmlDeviceGetPowerManagementMode\fP.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIlimit\fP Reference in which to return the power management limit in milliwatts
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIlimit\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIlimit\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetPowerManagementLimitConstraints (nvmlDevice_t device, unsigned int * minLimit, unsigned int * maxLimit)"
+.PP
+Retrieves information about possible values of power management limits on this device.
+.PP
+For Tesla (TM) and Quadro (R) products from the Kepler family.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIminLimit\fP Reference in which to return the minimum power management limit in milliwatts 
+.br
+\fImaxLimit\fP Reference in which to return the maximum power management limit in milliwatts
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIminLimit\fP and \fImaxLimit\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIminLimit\fP or \fImaxLimit\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceSetPowerManagementLimit\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetPowerManagementMode (nvmlDevice_t device, \fBnvmlEnableState_t\fP * mode)"
+.PP
+Retrieves the power management mode associated with this device.
+.PP
+For 'GF11x' Tesla (TM) and Quadro (R) products from the Fermi family.
+.IP "\(bu" 2
+Requires \fINVML_INFOROM_POWER\fP version 3.0 or higher.
+.PP
+.PP
+For Tesla (TM) and Quadro (R) products from the Kepler family.
+.IP "\(bu" 2
+Does not require \fINVML_INFOROM_POWER\fP object.
+.PP
+.PP
+This flag indicates whether any power management algorithm is currently active on the device. An enabled state does not necessarily mean the device is being actively throttled -- only that that the driver will do so if the appropriate conditions are met.
+.PP
+See \fBnvmlEnableState_t\fP for details on allowed modes.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fImode\fP Reference in which to return the current power management mode
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fImode\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fImode\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetPowerState (nvmlDevice_t device, \fBnvmlPstates_t\fP * pState)"
+.PP
+Deprecated: Use \fBnvmlDeviceGetPerformanceState\fP. This function exposes an incorrect generalization.
+.PP
+Retrieve the current performance state for the device.
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families.
+.PP
+See \fBnvmlPstates_t\fP for details on allowed performance states.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIpState\fP Reference in which to return the performance state reading
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIpState\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIpState\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetPowerUsage (nvmlDevice_t device, unsigned int * power)"
+.PP
+Retrieves power usage for this GPU in milliwatts and its associated circuitry (e.g. memory)
+.PP
+For 'GF11x' Tesla (TM) and Quadro (R) products from the Fermi family.
+.IP "\(bu" 2
+Requires \fINVML_INFOROM_POWER\fP version 3.0 or higher.
+.PP
+.PP
+For Tesla (TM) and Quadro (R) products from the Kepler family.
+.IP "\(bu" 2
+Does not require \fINVML_INFOROM_POWER\fP object.
+.PP
+.PP
+On Fermi and Kepler GPUs the reading is accurate to within +/- 5% of current power draw.
+.PP
+It is only available if power management mode is supported. See \fBnvmlDeviceGetPowerManagementMode\fP.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIpower\fP Reference in which to return the power usage information
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIpower\fP has been populated
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIpower\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support power readings
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetSerial (nvmlDevice_t device, char * serial, unsigned int length)"
+.PP
+Retrieves the globally unique board serial number associated with this device's board.
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families.
+.PP
+The serial number is an alphanumeric string that will not exceed 30 characters (including the NULL terminator). This number matches the serial number tag that is physically attached to the board. See \fBnvmlConstants::NVML_DEVICE_SERIAL_BUFFER_SIZE\fP.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIserial\fP Reference in which to return the board/module serial number 
+.br
+\fIlength\fP The maximum allowed length of the string returned in \fIserial\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIserial\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid, or \fIserial\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_INSUFFICIENT_SIZE\fP if \fIlength\fP is too small
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetSupportedClocksThrottleReasons (nvmlDevice_t device, unsigned long long * supportedClocksThrottleReasons)"
+.PP
+Retrieves bitmask of supported clocks throttle reasons that can be returned by \fBnvmlDeviceGetCurrentClocksThrottleReasons\fP
+.PP
+For all devices
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIsupportedClocksThrottleReasons\fP Reference in which to return bitmask of supported clocks throttle reasons
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIsupportedClocksThrottleReasons\fP has been returned successfully
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIsupportedClocksThrottleReasons\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBNvmlClocksThrottleReasons\fP 
+.PP
+\fBnvmlDeviceGetCurrentClocksThrottleReasons\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetSupportedGraphicsClocks (nvmlDevice_t device, unsigned int memoryClockMHz, unsigned int * count, unsigned int * clocksMHz)"
+.PP
+Retrieves the list of possible graphics clocks that can be used as an argument for \fBnvmlDeviceSetApplicationsClocks\fP.
+.PP
+For Tesla (TM) products, and Quadro (R) products from the Kepler family.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fImemoryClockMHz\fP Memory clock for which to return possible graphics clocks 
+.br
+\fIcount\fP Reference in which to provide the \fIclocksMHz\fP array size, and to return the number of elements 
+.br
+\fIclocksMHz\fP Reference in which to return the clocks in MHz
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if new settings were successfully set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_FOUND\fP if the max clock limit is not set
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIclock\fP is NULL or \fIclockType\fP is invalid
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device cannot report the specified clock
+.IP "\(bu" 2
+\fBNVML_ERROR_INSUFFICIENT_SIZE\fP if \fIcount\fP is too small
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceSetApplicationsClocks\fP 
+.PP
+\fBnvmlDeviceGetSupportedMemoryClocks\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetSupportedMemoryClocks (nvmlDevice_t device, unsigned int * count, unsigned int * clocksMHz)"
+.PP
+Retrieves the list of possible memory clocks that can be used as an argument for \fBnvmlDeviceSetApplicationsClocks\fP.
+.PP
+For Tesla (TM) products, and Quadro (R) products from the Kepler family.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIcount\fP Reference in which to provide the \fIclocksMHz\fP array size, and to return the number of elements 
+.br
+\fIclocksMHz\fP Reference in which to return the clock in MHz
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if new settings were successfully set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_FOUND\fP if the max clock limit is not set
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIclock\fP is NULL or \fIclockType\fP is invalid
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device cannot report the specified clock
+.IP "\(bu" 2
+\fBNVML_ERROR_INSUFFICIENT_SIZE\fP if \fIcount\fP is too small
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceSetApplicationsClocks\fP 
+.PP
+\fBnvmlDeviceGetSupportedGraphicsClocks\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetTemperature (nvmlDevice_t device, \fBnvmlTemperatureSensors_t\fP sensorType, unsigned int * temp)"
+.PP
+Retrieves the current temperature readings for the device, in degrees C.
+.PP
+For all discrete and S-class products.
+.PP
+See \fBnvmlTemperatureSensors_t\fP for details on available temperature sensors.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIsensorType\fP Flag that indicates which sensor reading to retrieve 
+.br
+\fItemp\fP Reference in which to return the temperature reading
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fItemp\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid, \fIsensorType\fP is invalid or \fItemp\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not have the specified sensor
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetTotalEccErrors (nvmlDevice_t device, \fBnvmlMemoryErrorType_t\fP errorType, \fBnvmlEccCounterType_t\fP counterType, unsigned long long * eccCounts)"
+.PP
+Retrieves the total ECC error counts for the device.
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families. Requires \fINVML_INFOROM_ECC\fP version 1.0 or higher. Requires ECC Mode to be enabled.
+.PP
+The total error count is the sum of errors across each of the separate memory systems, i.e. the total set of errors across the entire device.
+.PP
+See \fBnvmlMemoryErrorType_t\fP for a description of available error types.
+.br
+ See \fBnvmlEccCounterType_t\fP for a description of available counter types.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIerrorType\fP Flag that specifies the type of the errors. 
+.br
+\fIcounterType\fP Flag that specifies the counter-type of the errors. 
+.br
+\fIeccCounts\fP Reference in which to return the specified ECC errors
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIeccCounts\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP, \fIerrorType\fP or \fIcounterType\fP is invalid, or \fIeccCounts\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error
+.PP
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceClearEccErrorCounts()\fP 
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetUtilizationRates (nvmlDevice_t device, \fBnvmlUtilization_t\fP * utilization)"
+.PP
+Retrieves the current utilization rates for the device's major subsystems.
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families.
+.PP
+See \fBnvmlUtilization_t\fP for details on available utilization rates.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIutilization\fP Reference in which to return the utilization information
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIutilization\fP has been populated
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid or \fIutilization\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetUUID (nvmlDevice_t device, char * uuid, unsigned int length)"
+.PP
+Retrieves the globally unique immutable UUID associated with this device, as a 5 part hexadecimal string, that augments the immutable, board serial identifier.
+.PP
+For all CUDA capable GPUs.
+.PP
+The UUID is a globally unique identifier. It is the only available identifier for pre-Fermi-architecture products. It does NOT correspond to any identifier printed on the board. It will not exceed 80 characters in length (including the NULL terminator). See \fBnvmlConstants::NVML_DEVICE_UUID_BUFFER_SIZE\fP.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIuuid\fP Reference in which to return the GPU UUID 
+.br
+\fIlength\fP The maximum allowed length of the string returned in \fIuuid\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIuuid\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid, or \fIuuid\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_INSUFFICIENT_SIZE\fP if \fIlength\fP is too small
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceGetVbiosVersion (nvmlDevice_t device, char * version, unsigned int length)"
+.PP
+Get VBIOS version of the device.
+.PP
+For all products.
+.PP
+The VBIOS version may change from time to time. It will not exceed 32 characters in length (including the NULL terminator). See \fBnvmlConstants::NVML_DEVICE_VBIOS_VERSION_BUFFER_SIZE\fP.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device 
+.br
+\fIversion\fP Reference to which to return the VBIOS version 
+.br
+\fIlength\fP The maximum allowed length of the string returned in \fIversion\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if \fIversion\fP has been set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid, or \fIversion\fP is NULL
+.IP "\(bu" 2
+\fBNVML_ERROR_INSUFFICIENT_SIZE\fP if \fIlength\fP is too small
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceOnSameBoard (nvmlDevice_t device1, nvmlDevice_t device2, int * onSameBoard)"
+.PP
+Check if the GPU devices are on the same physical board.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice1\fP The first GPU device 
+.br
+\fIdevice2\fP The second GPU device 
+.br
+\fIonSameBoard\fP Reference in which to return the status. Non-zero indicates that the GPUs are on the same board.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP when onSameBoard has been populated
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdev1\fP, \fIdev2\fP or \fIonSameBoard\fP are invalid
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceResetApplicationsClocks (nvmlDevice_t device)"
+.PP
+Resets the application clock to the default value
+.PP
+This is the applications clock that will be used after system reboot or driver reload. Default value is constant, but the current value an be changed using \fBnvmlDeviceSetApplicationsClocks\fP.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnvmlDeviceGetApplicationsClock\fP 
+.PP
+\fBnvmlDeviceSetApplicationsClocks\fP
+.RE
+.PP
+For Tesla (TM) products, and Quadro (R) products from the Kepler family.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if new settings were successfully set
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_FOUND\fP if the max clock limit is not set
+.IP "\(bu" 2
+\fBNVML_ERROR_INVALID_ARGUMENT\fP if \fIdevice\fP is invalid
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device cannot perform this action
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SS "\fBnvmlReturn_t\fP DECLDIR nvmlDeviceValidateInforom (nvmlDevice_t device)"
+.PP
+Reads the infoROM from the flash and verifies the checksums.
+.PP
+For Tesla (TM) and Quadro (R) products from the Fermi and Kepler families.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The identifier of the target device
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fBNVML_SUCCESS\fP if infoROM is not corrupted
+.IP "\(bu" 2
+\fBNVML_ERROR_CORRUPTED_INFOROM\fP if the device's infoROM is corrupted
+.IP "\(bu" 2
+\fBNVML_ERROR_UNINITIALIZED\fP if the library has not been successfully initialized
+.IP "\(bu" 2
+\fBNVML_ERROR_NOT_SUPPORTED\fP if the device does not support this feature
+.IP "\(bu" 2
+\fBNVML_ERROR_UNKNOWN\fP on any unexpected error 
+.PP
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NVML from the source code.

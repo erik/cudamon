@@ -1,0 +1,60 @@
+.TH "Event Types" 3 "8 Jan 2013" "Version 1.1" "NVML" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Event Types \- 
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBnvmlEventTypeSingleBitEccError\fP   0x0000000000000001LL"
+.br
+.RI "\fIEvent about single bit ECC errors. \fP"
+.ti -1c
+.RI "#define \fBnvmlEventTypeDoubleBitEccError\fP   0x0000000000000002LL"
+.br
+.RI "\fIEvent about double bit ECC errors. \fP"
+.ti -1c
+.RI "#define \fBnvmlEventTypePState\fP   0x0000000000000004LL"
+.br
+.RI "\fIEvent about PState changes. \fP"
+.ti -1c
+.RI "#define \fBnvmlEventTypeXidCriticalError\fP   0x0000000000000008LL"
+.br
+.RI "\fIEvent that Xid critical error occurred. \fP"
+.ti -1c
+.RI "#define \fBnvmlEventTypeClock\fP   0x0000000000000010LL"
+.br
+.RI "\fIEvent about clock changes. \fP"
+.ti -1c
+.RI "#define \fBnvmlEventTypeNone\fP   0x0000000000000000LL"
+.br
+.RI "\fIMask with no events. \fP"
+.ti -1c
+.RI "#define \fBnvmlEventTypeAll\fP"
+.br
+.RI "\fIMask of all events. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Event Types which user can be notified about. See description of particular functions for details.
+.PP
+See \fBnvmlDeviceRegisterEvents\fP and \fBnvmlDeviceGetSupportedEventTypes\fP to check which devices support each event.
+.PP
+Types can be combined with bitwise or operator '|' when passed to \fBnvmlDeviceRegisterEvents\fP 
+.SH "Define Documentation"
+.PP 
+.SS "#define nvmlEventTypeClock   0x0000000000000010LL"
+.PP
+Kepler only 
+.SS "#define nvmlEventTypePState   0x0000000000000004LL"
+.PP
+\fBNote:\fP
+.RS 4
+On Fermi architecture PState changes are also an indicator that GPU is throttling down due to no work being executed on the GPU, power capping or thermal capping. In a typical situation, Fermi-based GPU should stay in P0 for the duration of the execution of the compute process. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NVML from the source code.

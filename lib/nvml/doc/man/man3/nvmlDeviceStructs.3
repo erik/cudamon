@@ -1,0 +1,41 @@
+.TH "Device Structs" 3 "8 Jan 2013" "Version 1.1" "NVML" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Device Structs \- 
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBnvmlPciInfo_t\fP"
+.br
+.ti -1c
+.RI "struct \fBnvmlEccErrorCounts_t\fP"
+.br
+.ti -1c
+.RI "struct \fBnvmlUtilization_t\fP"
+.br
+.ti -1c
+.RI "struct \fBnvmlMemory_t\fP"
+.br
+.ti -1c
+.RI "struct \fBnvmlProcessInfo_t\fP"
+.br
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBNVML_VALUE_NOT_AVAILABLE\fP   (-1)"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define NVML_VALUE_NOT_AVAILABLE   (-1)"
+.PP
+Special constant that some fields take when they are not available. Used when only part of the struct is not available.
+.PP
+Each structure explicitly states when to check for this value. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NVML from the source code.
