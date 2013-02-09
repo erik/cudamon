@@ -3,7 +3,7 @@ COBJ := $(CSRC:.c=.o)
 CDEPS := $(CSRC:.c=.d)
 
 OPT += -O2
-LFLAGS = -lm -lpthread -Llib/nvml/lib64 -lnvidia-ml -Wl,-rpath,lib/nvml/lib64
+LFLAGS = -lm -lpthread -lnvidia-ml
 CFLAGS = -ggdb -Wall -Wextra -pedantic -std=c99
 IFLAGS = -Ilib/nvml/include
 
