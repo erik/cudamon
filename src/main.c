@@ -2,19 +2,29 @@
 #include <stdlib.h>
 
 #include <getopt.h>
-
 #include <pthread.h>
 
-#include "nvml.h"
+#include "device.h"
+#include "server.h"
+#include "monitor.h"
+
 
 int main(void)
 {
+  atexit(shutdown_nvml);
 
-  nvmlReturn_t result;
+  // No point in continuing if we can't even initialize the library.
+  if(nvml_try(nvmlInit(), "Failed to initialize NVML"))
+    exit(1);
 
-  if((result = nvmlInit()) != NVML_SUCCESS) {
-    fprintf(stderr, "Failed to initialize NVML: %s\n", nvmlErrorString(result));
-  }
+  pthread_t server_thread, monitor_thread;
+
+  pthread_create(&server_thread, NULL, server_start, NULL);
+  pthread_create(&monitor_thread, NULL, monitor_start, NULL);
+
+  // Wait for both threads to complete
+  (void)pthread_join(server_thread, NULL);
+  (void)pthread_join(monitor_thread, NULL);
 
   return 0;
 }
