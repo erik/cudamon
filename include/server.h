@@ -8,7 +8,8 @@ struct server {
 };
 
 struct server* server_new(void);
-void* server_start(void* _);
+void* server_thread(void* srv);
 void server_stop(void);
+void server_destroy(struct server*);
 
 #endif /* _SERVER_H */
