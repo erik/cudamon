@@ -13,20 +13,16 @@ library.
 
 From NVIDIA's NVML documentation:
 
-* Supported products:
   * Full Support
-    * NVIDIA Tesla; Line:
-      * S2050, C2050, C2070, C2075,
-        M2050, M2070, M2075, M2090,
-        X2070, X2090,
-        K10, K20, K20X
-    * NVIDIA Quadro Line: 4000, 5000, 6000, 7000, M2070-Q, 600, 2000, 3000M and 410
-    * NVIDIA GeForce Line: None
+    - NVIDIA Tesla Line: S2050, C2050, C2070, C2075, M2050, M2070, M2075, M2090,
+        X2070, X2090, K10, K20, K20X
+    - NVIDIA Quadro Line: 4000, 5000, 6000, 7000, M2070-Q, 600, 2000, 3000M and 410
+    - NVIDIA GeForce Line: None
 
-* Limited Support
-  * NVIDIA Tesla Line:    S1070, C1060, M1060
-  * NVIDIA Quadro Line:  All other current and previous generation Quadro-branded parts
-  * NVIDIA GeForce Line: All current and previous generation GeForce-branded parts
+  * Limited Support
+    - NVIDIA Tesla Line:   S1070, C1060, M1060
+    - NVIDIA Quadro Line:  All other current and previous generation Quadro-branded parts
+    - NVIDIA GeForce Line: All current and previous generation GeForce-branded parts
 
 License
 -------
