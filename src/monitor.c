@@ -70,7 +70,7 @@ void* monitor_thread(void* ptr)
   while(mon->active) {
     update_device_info(mon);
 
-    usleep(mon->update_interval);
+    usleep(mon->update_interval * 1.0e6);
   }
 
   return NULL;
