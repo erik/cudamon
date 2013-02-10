@@ -9,6 +9,13 @@ struct device {
   nvmlPciInfo_t pci;
   nvmlComputeMode_t compute_mode;
   nvmlMemory_t memory;
+  nvmlEventSet_t event_set;
+
+  // In Celsius
+  unsigned temperature;
+
+  // In milliwatts
+  unsigned power_usage;
 
   char name[NVML_DEVICE_NAME_BUFFER_SIZE];
   char serial[NVML_DEVICE_SERIAL_BUFFER_SIZE];
@@ -19,7 +26,6 @@ struct monitor {
   unsigned update_interval;
   // Whether or not the monitor should continue running
   int active;
-
 
   char driver_version[NVML_SYSTEM_DRIVER_VERSION_BUFFER_SIZE];
   char nvml_version[NVML_SYSTEM_NVML_VERSION_BUFFER_SIZE];

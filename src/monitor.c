@@ -27,6 +27,14 @@ static void init_device_info(struct monitor* mon)
     NVML_TRY(nvmlDeviceGetPciInfo(dev.handle, &dev.pci));
     NVML_TRY(nvmlDeviceGetMemoryInfo(dev.handle, &dev.memory));
 
+    unsigned long long event_types;
+    NVML_TRY(nvmlEventSetCreate(&dev.event_set));
+    if(0 == NVML_TRY(nvmlDeviceGetSupportedEventTypes(dev.handle, &event_types))) {
+      NVML_TRY(nvmlDeviceRegisterEvents(dev.handle, event_types, dev.event_set));
+    } else {
+      dev.event_set = NULL;
+    }
+
     mon->devices[i] = dev;
   }
 }
@@ -39,11 +47,21 @@ static void update_device_info(struct monitor* mon)
 
   unsigned i;
 
-# pragma omp parallel for private(i)
   for(i = 0; i < mon->dev_count; ++i) {
     struct device* dev = &mon->devices[i];
 
     NVML_TRY(nvmlDeviceGetMemoryInfo(dev->handle, &dev->memory));
+    NVML_TRY(nvmlDeviceGetTemperature(dev->handle, NVML_TEMPERATURE_GPU,
+                                      &dev->temperature));
+    NVML_TRY(nvmlDeviceGetPowerUsage(dev->handle, &dev->power_usage));
+
+    if(dev->event_set != NULL) {
+      nvmlEventData_t data;
+
+      NVML_TRY(nvmlEventSetWait(dev->event_set, &data, 1));
+
+      // TODO: Do something with the returned information.
+    }
   }
 
 }
@@ -84,7 +102,9 @@ void monitor_stop(void)
 void monitor_destroy(struct monitor* mon)
 {
   for(unsigned i = 0; i < mon->dev_count; ++i) {
-    // TODO
+    struct device* dev = &mon->devices[i];
+
+    NVML_TRY(nvmlEventSetFree(dev->event_set));
   }
 
   free(mon->devices);

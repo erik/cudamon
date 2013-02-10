@@ -1,6 +1,5 @@
 # Object files
 *.o
-*.d
 
 # Libraries
 *.a
@@ -16,3 +15,7 @@
 *.out
 *.app
 cudamond
+
+# Other cruft
+*.d
+*.plist

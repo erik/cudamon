@@ -3,8 +3,8 @@ COBJ := $(CSRC:.c=.o)
 CDEPS := $(CSRC:.c=.d)
 
 OPT += -O2
-LFLAGS = -lm -lpthread -Llib/nvml/lib64 -lnvidia-ml -lgomp
-CFLAGS = -ggdb -Wall -Wextra -pedantic -std=c99 -fopenmp -D_BSD_SOURCE
+LFLAGS = -lm -lpthread -Llib/nvml/lib64 -lnvidia-ml
+CFLAGS = -ggdb -Wall -Wextra -pedantic -std=c99 -D_BSD_SOURCE
 IFLAGS = -Ilib/nvml/include -Iinclude
 
 all: cudamond
@@ -20,6 +20,9 @@ clean:
 
 todo:
 	@find . -type f | xargs egrep -n --color=auto 'XXX|TODO|FIXME'
+
+analyze:
+	clang --analyze $(CFLAGS) $(IFLAGS) src/*.c
 
 check-syntax:
 	$(CC) -o /dev/null $(CFLAGS) -S $(CHK_SOURCES)
