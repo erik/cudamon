@@ -16,7 +16,7 @@ const char* nvml_error_code_string(nvmlReturn_t ret);
 static inline int nvml_try(nvmlReturn_t ret, const char* fn)
 {
   if(ret != NVML_SUCCESS) {
-    fprintf(stderr, "%s: %s: %s", fn, nvml_error_code_string(ret), nvmlErrorString(ret));
+    fprintf(stderr, "%s: %s: %s\n", fn, nvml_error_code_string(ret), nvmlErrorString(ret));
     return 1;
   }
 
