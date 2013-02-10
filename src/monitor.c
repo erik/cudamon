@@ -6,16 +6,16 @@
 
 static void monitor_get_device_info(struct monitor* mon)
 {
-  nvml_try(nvmlDeviceGetCount(&mon->dev_count), "Failed to get device count");
+  NVML_TRY(nvmlDeviceGetCount(&mon->dev_count));
 
   mon->devices = malloc(mon->dev_count * sizeof(struct device));
 
   for(unsigned i = 0; i < mon->dev_count; ++i) {
     struct device dev;
 
-    nvml_try(nvmlDeviceGetHandleByIndex(i, &dev.handle), "Failed to get device handle");
-    nvml_try(nvmlDeviceGetName(dev.handle, dev.name, NVML_DEVICE_NAME_BUFFER_SIZE), "Failed to get device name");
-    nvml_try(nvmlDeviceGetPciInfo(dev.handle, &dev.pci), "Failed to get device PCI info");
+    NVML_TRY(nvmlDeviceGetHandleByIndex(i, &dev.handle));
+    NVML_TRY(nvmlDeviceGetName(dev.handle, dev.name, NVML_DEVICE_NAME_BUFFER_SIZE));
+    NVML_TRY(nvmlDeviceGetPciInfo(dev.handle, &dev.pci));
   }
 
 }
@@ -42,5 +42,10 @@ void monitor_stop(void)
 
 void monitor_destroy(struct monitor* mon)
 {
+  for(unsigned i = 0; i < mon->dev_count; ++i) {
+    // TODO
+  }
+
+  free(mon->devices);
   free(mon);
 }

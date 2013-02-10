@@ -11,7 +11,7 @@
 int main(void)
 {
   // No point in continuing if we can't even initialize the library.
-  if(nvml_try(nvmlInit(), "Failed to initialize NVML"))
+  if(NVML_TRY(nvmlInit()))
     exit(1);
 
   atexit(shutdown_nvml);
