@@ -38,8 +38,8 @@ static void update_device_info(struct monitor* mon)
   // parallelism here.
 
   unsigned i;
-#pragma omp parallel for private(i)
 
+# pragma omp parallel for private(i)
   for(i = 0; i < mon->dev_count; ++i) {
     struct device* dev = &mon->devices[i];
 
@@ -70,7 +70,7 @@ void* monitor_thread(void* ptr)
   while(mon->active) {
     update_device_info(mon);
 
-    usleep(mon->update_interval * 1.0e6);
+    usleep(mon->update_interval * 1000);
   }
 
   return NULL;
