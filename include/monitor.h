@@ -5,13 +5,25 @@
 
 struct device {
   nvmlDevice_t handle;
-  char name[NVML_DEVICE_NAME_BUFFER_SIZE];
-  nvmlPciInfo_t pci;
 
+  nvmlPciInfo_t pci;
   nvmlComputeMode_t compute_mode;
+  nvmlMemory_t memory;
+
+  char name[NVML_DEVICE_NAME_BUFFER_SIZE];
+  char serial[NVML_DEVICE_SERIAL_BUFFER_SIZE];
 };
 
 struct monitor {
+  // How long should we wait before polling the devices again? In milliseconds.
+  unsigned update_interval;
+  // Whether or not the monitor should continue running
+  int active;
+
+
+  char driver_version[NVML_SYSTEM_DRIVER_VERSION_BUFFER_SIZE];
+  char nvml_version[NVML_SYSTEM_NVML_VERSION_BUFFER_SIZE];
+
   unsigned dev_count;
   struct device* devices;
 };

@@ -3,8 +3,8 @@ COBJ := $(CSRC:.c=.o)
 CDEPS := $(CSRC:.c=.d)
 
 OPT += -O2
-LFLAGS = -lm -lpthread -Llib/nvml/lib64 -lnvidia-ml
-CFLAGS = -ggdb -Wall -Wextra -pedantic -std=c99
+LFLAGS = -lm -lpthread -Llib/nvml/lib64 -lnvidia-ml -lgomp
+CFLAGS = -ggdb -Wall -Wextra -pedantic -std=c99 -fopenmp -D_BSD_SOURCE
 IFLAGS = -Ilib/nvml/include -Iinclude
 
 all: cudamond
