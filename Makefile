@@ -2,18 +2,25 @@ CSRC := $(shell find src -name "*.c")
 COBJ := $(CSRC:.c=.o)
 CDEPS := $(CSRC:.c=.d)
 
+LIB := mongoose
+
 OPT += -O2
 LFLAGS = -lm -lpthread -Llib/nvml/lib64 -lnvidia-ml
 CFLAGS = -ggdb -Wall -Wextra -pedantic -std=c99 -D_BSD_SOURCE
-IFLAGS = -Ilib/nvml/include -Iinclude
+IFLAGS = -Ilib/nvml/include -Ilib/mongoose -Iinclude
 
 all: cudamond
 
-cudamond: $(COBJ)
+cudamond: $(LIB) $(COBJ)
 	$(CC) $(COBJ) $(LFLAGS) -o cudamond
 
 %.o: %.c
 	$(CC) -c -MMD $(CFLAGS) $(IFLAGS) $(OPT) $< -o $@
+
+mongoose: lib/mongoose/mongoose.o
+
+lib/mongoose/mongoose.o: lib/mongoose/mongoose.c
+	$(CC) -c -std=c99 -O2 -W -Wall -pedantic -pthread -DDEBUG $< -o $@
 
 clean:
 	rm -f $(COBJ) $(DEPS) cudamond
