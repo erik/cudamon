@@ -35,8 +35,7 @@ struct monitor {
 };
 
 struct monitor* monitor_new(void);
-void* monitor_thread(void* mon);
-void monitor_stop(void);
+void monitor_start(struct monitor* mon);
 void monitor_destroy(struct monitor*);
 
 #endif /* _MONITOR_H */

@@ -2,7 +2,6 @@
 #include <stdlib.h>
 
 #include <getopt.h>
-#include <pthread.h>
 
 #include "device.h"
 #include "server.h"
@@ -17,16 +16,13 @@ int main(void)
   atexit(shutdown_nvml);
 
   struct monitor* mon = monitor_new();
-  struct server* srv = server_new();
+  struct server* srv = server_new(mon);
 
-  pthread_t server_thr, monitor_thr;
+  // Spin up embedded mongoose server in new thread
+  server_start(srv);
 
-  pthread_create(&server_thr, NULL, server_thread, srv);
-  pthread_create(&monitor_thr, NULL, monitor_thread, mon);
-
-  // Wait for both threads to complete
-  (void)pthread_join(server_thr, NULL);
-  (void)pthread_join(monitor_thr, NULL);
+  // This function blocks
+  monitor_start(mon);
 
   monitor_destroy(mon);
   server_destroy(srv);

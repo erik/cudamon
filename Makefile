@@ -12,7 +12,7 @@ IFLAGS = -Ilib/nvml/include -Ilib/mongoose -Iinclude
 all: cudamond
 
 cudamond: $(LIB) $(COBJ)
-	$(CC) $(COBJ) $(LFLAGS) -o cudamond
+	$(CC) $(COBJ) lib/mongoose/mongoose.o $(LFLAGS) -o cudamond
 
 %.o: %.c
 	$(CC) -c -MMD $(CFLAGS) $(IFLAGS) $(OPT) $< -o $@

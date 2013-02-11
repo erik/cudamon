@@ -81,21 +81,13 @@ struct monitor* monitor_new(void)
   return mon;
 }
 
-void* monitor_thread(void* ptr)
+void monitor_start(struct monitor* mon)
 {
-  struct monitor* mon = (struct monitor*) ptr;
-
   while(mon->active) {
     update_device_info(mon);
 
     usleep(mon->update_interval * 1000);
   }
-
-  return NULL;
-}
-
-void monitor_stop(void)
-{
 
 }
 
