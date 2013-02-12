@@ -29,9 +29,13 @@ static void ajax_send_update(struct mg_connection *conn)
   mg_printf(conn, "'devices' : [");
 
   for(unsigned i = 0; i < monitor->dev_count; ++i) {
+    mg_printf(conn, "{");
+
     struct device dev = monitor->devices[i];
 
     mg_printf(conn, "'temperature':'%d',", dev.temperature);
+
+    mg_printf(conn, "},");
   }
 
   mg_printf(conn, "],");
