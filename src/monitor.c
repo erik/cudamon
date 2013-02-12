@@ -5,6 +5,22 @@
 #include "device.h"
 #include "monitor.h"
 
+// Build the set of device features
+static void get_device_features(struct device* dev)
+{
+  if(nvmlDeviceGetTemperature(dev->handle, NVML_TEMPERATURE_GPU, &dev->temperature) == NVML_SUCCESS) {
+    dev->feature_support |= TEMPERATURE;
+  }
+
+  if(nvmlDeviceGetMemoryInfo(dev->handle, &dev->memory) == NVML_SUCCESS) {
+    dev->feature_support |= MEMORY_INFO;
+  }
+
+  if(nvmlDeviceGetPowerUsage(dev->handle, &dev->power_usage) == NVML_SUCCESS) {
+    dev->feature_support |= POWER_USAGE;
+  }
+}
+
 static void init_device_info(struct monitor* mon)
 {
   NVML_TRY(nvmlSystemGetDriverVersion(mon->driver_version,
@@ -18,6 +34,8 @@ static void init_device_info(struct monitor* mon)
 
   for(unsigned i = 0; i < mon->dev_count; ++i) {
     struct device dev;
+
+    dev.index = i;
 
     NVML_TRY(nvmlDeviceGetHandleByIndex(i, &dev.handle));
 
@@ -35,6 +53,8 @@ static void init_device_info(struct monitor* mon)
       dev.event_set = NULL;
     }
 
+    get_device_features(&dev);
+
     mon->devices[i] = dev;
   }
 }
@@ -50,10 +70,18 @@ static void update_device_info(struct monitor* mon)
   for(i = 0; i < mon->dev_count; ++i) {
     struct device* dev = &mon->devices[i];
 
-    NVML_TRY(nvmlDeviceGetMemoryInfo(dev->handle, &dev->memory));
-    NVML_TRY(nvmlDeviceGetTemperature(dev->handle, NVML_TEMPERATURE_GPU,
-                                      &dev->temperature));
-    NVML_TRY(nvmlDeviceGetPowerUsage(dev->handle, &dev->power_usage));
+    if(dev->feature_support & MEMORY_INFO) {
+      NVML_TRY(nvmlDeviceGetMemoryInfo(dev->handle, &dev->memory));
+    }
+
+    if(dev->feature_support & TEMPERATURE) {
+      NVML_TRY(nvmlDeviceGetTemperature(dev->handle, NVML_TEMPERATURE_GPU,
+                                        &dev->temperature));
+    }
+
+    if(dev->feature_support & POWER_USAGE) {
+      NVML_TRY(nvmlDeviceGetPowerUsage(dev->handle, &dev->power_usage));
+    }
 
     if(dev->event_set != NULL) {
       nvmlEventData_t data;

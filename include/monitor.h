@@ -3,7 +3,16 @@
 #ifndef _MONITOR_H
 #define _MONITOR_H
 
+enum feature {
+  TEMPERATURE  = 1 << 0,
+  COMPUTE_MODE = 1 << 1,
+  POWER_USAGE  = 1 << 2,
+  MEMORY_INFO  = 1 << 3
+};
+
 struct device {
+  unsigned index;
+
   nvmlDevice_t handle;
 
   nvmlPciInfo_t pci;
@@ -19,6 +28,9 @@ struct device {
 
   char name[NVML_DEVICE_NAME_BUFFER_SIZE];
   char serial[NVML_DEVICE_SERIAL_BUFFER_SIZE];
+
+  // Bitmask of enum feature
+  unsigned feature_support;
 };
 
 struct monitor {
