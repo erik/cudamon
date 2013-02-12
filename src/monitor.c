@@ -1,6 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
+
+#include "nvml.h"
 
 #include "device.h"
 #include "monitor.h"
@@ -8,7 +11,8 @@
 // Build the set of device features
 static void get_device_features(struct device* dev)
 {
-  if(nvmlDeviceGetTemperature(dev->handle, NVML_TEMPERATURE_GPU, &dev->temperature) == NVML_SUCCESS) {
+  if(nvmlDeviceGetTemperature(dev->handle, NVML_TEMPERATURE_GPU,
+                              &dev->temperature) == NVML_SUCCESS) {
     dev->feature_support |= TEMPERATURE;
   }
 
@@ -18,6 +22,18 @@ static void get_device_features(struct device* dev)
 
   if(nvmlDeviceGetPowerUsage(dev->handle, &dev->power_usage) == NVML_SUCCESS) {
     dev->feature_support |= POWER_USAGE;
+  }
+
+  if(nvmlDeviceGetClockInfo(dev->handle, NVML_CLOCK_GRAPHICS,
+                            &dev->clock[NVML_CLOCK_GRAPHICS]) == NVML_SUCCESS &&
+
+     nvmlDeviceGetClockInfo(dev->handle, NVML_CLOCK_SM,
+                            &dev->clock[NVML_CLOCK_SM]) == NVML_SUCCESS &&
+
+     nvmlDeviceGetClockInfo(dev->handle, NVML_CLOCK_COUNT,
+                            &dev->clock[NVML_CLOCK_COUNT]) == NVML_SUCCESS) {
+
+    dev->feature_support |= CLOCK_INFO;
   }
 }
 
@@ -34,6 +50,7 @@ static void init_device_info(struct monitor* mon)
 
   for(unsigned i = 0; i < mon->dev_count; ++i) {
     struct device dev;
+    memset(&dev, 0, sizeof(struct device));
 
     dev.index = i;
 
@@ -51,6 +68,11 @@ static void init_device_info(struct monitor* mon)
       NVML_TRY(nvmlDeviceRegisterEvents(dev.handle, event_types, dev.event_set));
     } else {
       dev.event_set = NULL;
+    }
+
+    for(nvmlClockType_t type = NVML_CLOCK_GRAPHICS; type < NVML_CLOCK_COUNT; ++type) {
+      if(NVML_TRY(nvmlDeviceGetMaxClockInfo(dev.handle, type, &dev.max_clock[type])))
+        break;
     }
 
     get_device_features(&dev);
@@ -81,6 +103,10 @@ static void update_device_info(struct monitor* mon)
 
     if(dev->feature_support & POWER_USAGE) {
       NVML_TRY(nvmlDeviceGetPowerUsage(dev->handle, &dev->power_usage));
+    }
+
+    for(nvmlClockType_t type = NVML_CLOCK_GRAPHICS; type < NVML_CLOCK_COUNT; ++type) {
+      NVML_TRY(nvmlDeviceGetClockInfo(dev->handle, type, &dev->clock[type]));
     }
 
     if(dev->event_set != NULL) {
