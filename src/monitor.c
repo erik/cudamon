@@ -105,8 +105,10 @@ static void update_device_info(struct monitor* mon)
       NVML_TRY(nvmlDeviceGetPowerUsage(dev->handle, &dev->power_usage));
     }
 
-    for(nvmlClockType_t type = NVML_CLOCK_GRAPHICS; type < NVML_CLOCK_COUNT; ++type) {
-      NVML_TRY(nvmlDeviceGetClockInfo(dev->handle, type, &dev->clock[type]));
+    if(dev->feature_support & CLOCK_INFO) {
+      for(nvmlClockType_t type = NVML_CLOCK_GRAPHICS; type < NVML_CLOCK_COUNT; ++type) {
+        NVML_TRY(nvmlDeviceGetClockInfo(dev->handle, type, &dev->clock[type]));
+      }
     }
 
     if(dev->event_set != NULL) {
