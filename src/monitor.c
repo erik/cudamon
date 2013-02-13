@@ -58,6 +58,7 @@ static void init_device_info(struct monitor* mon)
 
     NVML_TRY(nvmlDeviceGetName(dev.handle, dev.name, sizeof(dev.name)));
     NVML_TRY(nvmlDeviceGetSerial(dev.handle, dev.serial, sizeof(dev.serial)));
+    NVML_TRY(nvmlDeviceGetUUID(dev.handle, dev.uuid, sizeof(dev.uuid)));
 
     NVML_TRY(nvmlDeviceGetPciInfo(dev.handle, &dev.pci));
     NVML_TRY(nvmlDeviceGetMemoryInfo(dev.handle, &dev.memory));
@@ -83,9 +84,9 @@ static void init_device_info(struct monitor* mon)
 
 static void update_device_info(struct monitor* mon)
 {
-  // NVML is thread safe, and the order we grab GPU information here
-  // doesn't particularly matter, so might as well take advantage of
-  // parallelism here.
+  // TODO: NVML is thread safe, and the order we grab GPU information
+  // here doesn't particularly matter, so might as well take advantage
+  // of parallelism here.
 
   unsigned i;
 
@@ -119,7 +120,6 @@ static void update_device_info(struct monitor* mon)
       // TODO: Do something with the returned information.
     }
   }
-
 }
 
 struct monitor* monitor_new(void)

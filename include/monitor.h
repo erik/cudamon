@@ -32,6 +32,7 @@ struct device {
 
   char name[NVML_DEVICE_NAME_BUFFER_SIZE];
   char serial[NVML_DEVICE_SERIAL_BUFFER_SIZE];
+  char uuid[NVML_DEVICE_UUID_BUFFER_SIZE];
 
   // Bitmask of enum feature
   unsigned feature_support;
