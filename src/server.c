@@ -81,7 +81,7 @@ static void ajax_send_update(struct mg_connection *conn)
 
     // Memory is reported in bytes, but we'll just return MiB here.
     if(dev.feature_support & MEMORY_INFO) {
-      mg_printf(conn, "\"memory\": { total: %d",
+      mg_printf(conn, ",\"memory\": { \"total\": %d",
                 (unsigned)(dev.memory.total / 1024 / 1024));
 
       JSON_KEY_INTEGER("free", (unsigned)(dev.memory.free / 1024 / 1024));
