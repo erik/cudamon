@@ -21,11 +21,16 @@ static const char* ajax_reply_start =
 
 static struct monitor* monitor = NULL;
 
+// TODO: Some of these values are static and only need to be sent once.
 static void ajax_send_update(struct mg_connection *conn)
 {
   mg_printf(conn, "%s", ajax_reply_start);
 
   mg_printf(conn, "{");
+
+  mg_printf(conn, "'driver_version': '%s',", mon->driver_version);
+  mg_printf(conn, "'nvml_version': '%s',", mon->nvml_version);
+
   mg_printf(conn, "'devices' : [");
 
   for(unsigned i = 0; i < monitor->dev_count; ++i) {
@@ -33,7 +38,13 @@ static void ajax_send_update(struct mg_connection *conn)
 
     struct device dev = monitor->devices[i];
 
-    mg_printf(conn, "'temperature':'%d',", dev.temperature);
+    mg_printf(conn, "'index':%d,", dev.index);
+    mg_printf(conn, "'name':'%s',", dev.name);
+    mg_printf(conn, "'serial':'%s',", dev.serial);
+    mg_printf(conn, "'uuid':'%s',", dev.uuid);
+
+    if(dev.feature_support & TEMPERATURE)
+      mg_printf(conn, "'temperature':'%d',", dev.temperature);
 
     mg_printf(conn, "},");
   }
