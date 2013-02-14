@@ -1,46 +1,89 @@
-var series = [];
+var palette = new Rickshaw.Color.Palette();
 
-// Initialize
-$.getJSON("ajax/update", function(data) {
-    alert(data);
-});
+var driver_version = "", nvml_version = "";
 
-function update() {
-    d3.json("ajax/update", function(data) {
-        console.log(this);
-        for(dev in data['devices']) {
-            series += {name:dev.name, color:'#FF00FF', data:[dev.temperature]};
+var series = {
+    temperature: []
+};
+
+var graph = null;
+
+function update(data) {
+    driver_version = data.driver_version;
+    nvml_version = data.nvml_version;
+
+    for(var i in data.devices) {
+        var dev = data.devices[i];
+
+        // TODO: get time from server
+        var time = (new Date).getTime() / 1000;
+
+        if(series.temperature[i] == null) {
+            series.temperature[i] = { name: dev.name,
+                                      data: [{x:time,y:dev.temperature}],
+                                      color: palette.color()
+                                    };
+        } else {
+            series.temperature[i]['data'].push({x:time, y:dev.temperature});
         }
-    });
+
+        while(series.temperature[i].data.length >= 100) {
+            series.temperature[i].data.shift();
+        }
+
+    }
+
+    graph && graph.update() && graph.render();
 }
 
-var graph = new Rickshaw.Graph( {
-    element: document.getElementById("chart"),
-    width: 500,
-    height: 200,
-    renderer: 'line',
-    series: series
-});
+// Initialize
+function callUpdate() {
+    update($.parseJSON($.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url:"ajax/update",
+        async: false,
+        data: {},
+    }).responseText));
+}
 
-graph.render();
+callUpdate();
+
+setInterval(callUpdate, 1000);
+
+graph = new Rickshaw.Graph( {
+    element: document.getElementById("chart"),
+    width: 540,
+    height: 240,
+    renderer: 'line',
+    series: series.temperature
+});
 
 var hoverDetail = new Rickshaw.Graph.HoverDetail( {
     graph: graph
 });
 
-var legend = new Rickshaw.Graph.Legend( {
-    graph: graph,
-    element: document.getElementById('legend')
+var time = new Rickshaw.Fixtures.Time();
 
+var x_axis = new Rickshaw.Graph.Axis.Time({
+    graph: graph,
+    timeUnit: time.unit('15 second')
+});
+
+var y_axis = new Rickshaw.Graph.Axis.Y( {
+    graph: graph,
+    tickFormat: function(y) { return y + "C"; },
+    element: document.getElementById('y_axis'),
+});
+
+var legend = new Rickshaw.Graph.Legend( {
+        element: document.querySelector('#legend'),
+        graph: graph
 } );
 
-var shelving = new Rickshaw.Graph.Behavior.Series.Toggle( {
+var highlighter = new Rickshaw.Graph.Behavior.Series.Highlight({
     graph: graph,
     legend: legend
 });
 
-var axes = new Rickshaw.Graph.Axis.Time( {
-    graph: graph
-});
-
-axes.render();
+graph.render();
