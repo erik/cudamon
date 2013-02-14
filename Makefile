@@ -20,10 +20,13 @@ cudamond: $(LIB) $(COBJ)
 mongoose: lib/mongoose/mongoose.o
 
 lib/mongoose/mongoose.o: lib/mongoose/mongoose.c
-	$(CC) -c -std=c99 -O2 -W -Wall -pedantic -pthread -DDEBUG $< -o $@
+	$(CC) -c -std=c99 -O2 -W -Wall -pedantic -pthread $< -o $@
 
 clean:
 	rm -f $(COBJ) $(DEPS) cudamond
+
+dist-clean: clean
+	rm -f lib/mongoose/mongoose.o
 
 todo:
 	@find . -type f | xargs egrep -n --color=auto 'XXX|TODO|FIXME'
