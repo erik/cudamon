@@ -40,7 +40,8 @@ static void ajax_send_update(struct mg_connection *conn)
 
     struct device dev = monitor->devices[i];
 
-    JSON_KEY_INTEGER("index", dev.index);
+    mg_printf(conn, "\"index\": %d", dev.index);
+
     JSON_KEY_STRING("name",   dev.name);
     JSON_KEY_STRING("serial", dev.serial);
     JSON_KEY_STRING("uuid",   dev.uuid);
