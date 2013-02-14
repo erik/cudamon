@@ -28,8 +28,8 @@ static void ajax_send_update(struct mg_connection *conn)
 
   mg_printf(conn, "{");
 
-  mg_printf(conn, "'driver_version': '%s',", mon->driver_version);
-  mg_printf(conn, "'nvml_version': '%s',", mon->nvml_version);
+  mg_printf(conn, "'driver_version': '%s',", monitor->driver_version);
+  mg_printf(conn, "'nvml_version': '%s',", monitor->nvml_version);
 
   mg_printf(conn, "'devices' : [");
 
