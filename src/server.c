@@ -21,6 +21,9 @@ static const char* ajax_reply_start =
 
 static struct monitor* monitor = NULL;
 
+#define JSON_KEY_STRING(key, value) mg_printf(conn, ",\"%s\": \"%s\"", key, value)
+#define JSON_KEY_INTEGER(key, value) mg_printf(conn, ",\"%s\": %d", key, value)
+
 // TODO: Some of these values are static and only need to be sent once.
 static void ajax_send_update(struct mg_connection *conn)
 {
@@ -28,28 +31,30 @@ static void ajax_send_update(struct mg_connection *conn)
 
   mg_printf(conn, "{");
 
-  mg_printf(conn, "'driver_version': '%s',", monitor->driver_version);
-  mg_printf(conn, "'nvml_version': '%s',", monitor->nvml_version);
-
-  mg_printf(conn, "'devices' : [");
+  mg_printf(conn, "\"devices\" : [");
 
   for(unsigned i = 0; i < monitor->dev_count; ++i) {
+    if(i != 0) mg_printf(conn, ",");
+
     mg_printf(conn, "{");
 
     struct device dev = monitor->devices[i];
 
-    mg_printf(conn, "'index':%d,", dev.index);
-    mg_printf(conn, "'name':'%s',", dev.name);
-    mg_printf(conn, "'serial':'%s',", dev.serial);
-    mg_printf(conn, "'uuid':'%s',", dev.uuid);
+    JSON_KEY_INTEGER("index", dev.index);
+    JSON_KEY_STRING("name",   dev.name);
+    JSON_KEY_STRING("serial", dev.serial);
+    JSON_KEY_STRING("uuid",   dev.uuid);
 
     if(dev.feature_support & TEMPERATURE)
-      mg_printf(conn, "'temperature':'%d',", dev.temperature);
+      JSON_KEY_INTEGER("temperature", dev.temperature);
 
-    mg_printf(conn, "},");
+    mg_printf(conn, "}");
   }
 
-  mg_printf(conn, "],");
+  mg_printf(conn, "]");
+
+  JSON_KEY_STRING("driver_version", monitor->driver_version);
+  JSON_KEY_STRING("nvml_version",   monitor->nvml_version);
 
   mg_printf(conn, "}");
 }
