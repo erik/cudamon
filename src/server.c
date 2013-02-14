@@ -45,6 +45,12 @@ static void ajax_send_init(struct mg_connection *conn)
     JSON_KEY_STRING("serial", dev.serial);
     JSON_KEY_STRING("uuid",   dev.uuid);
 
+    mg_printf(conn, ",\"pci\": { \"bus\": \"%s\"", dev.pci.busId);
+    JSON_KEY_INTEGER("devId", dev.pci.pciDeviceId);
+    JSON_KEY_INTEGER("subId", dev.pci.pciSubSystemId);
+
+    mg_printf(conn, "}");
+
     mg_printf(conn, "}");
 
   }
