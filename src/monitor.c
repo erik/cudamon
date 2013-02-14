@@ -129,7 +129,7 @@ static void update_device_info(struct monitor* mon)
 
 struct monitor* monitor_new(void)
 {
-  struct monitor* mon = malloc(sizeof(struct monitor));
+  struct monitor* mon = calloc(1, sizeof(struct monitor));
 
   // Half a second is a decent default
   mon->update_interval = 500;
