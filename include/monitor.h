@@ -47,6 +47,9 @@ struct monitor {
   char driver_version[NVML_SYSTEM_DRIVER_VERSION_BUFFER_SIZE];
   char nvml_version[NVML_SYSTEM_NVML_VERSION_BUFFER_SIZE];
 
+  // When we last updated this data
+  time_t last_update;
+
   unsigned dev_count;
   struct device* devices;
 };

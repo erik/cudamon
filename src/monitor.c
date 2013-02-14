@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+#include <time.h>
 
 #include "nvml.h"
 
@@ -80,6 +81,8 @@ static void init_device_info(struct monitor* mon)
 
     mon->devices[i] = dev;
   }
+
+  mon->last_update = time(NULL);
 }
 
 static void update_device_info(struct monitor* mon)
@@ -120,6 +123,8 @@ static void update_device_info(struct monitor* mon)
       // TODO: Do something with the returned information.
     }
   }
+
+  mon->last_update = time(NULL);
 }
 
 struct monitor* monitor_new(void)
