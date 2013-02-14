@@ -47,7 +47,7 @@ static void init_device_info(struct monitor* mon)
 
   NVML_TRY(nvmlDeviceGetCount(&mon->dev_count));
 
-  mon->devices = malloc(mon->dev_count * sizeof(struct device));
+  mon->devices = calloc(mon->dev_count, sizeof(struct device));
 
   for(unsigned i = 0; i < mon->dev_count; ++i) {
     struct device dev;
