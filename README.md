@@ -63,7 +63,7 @@ pulled in by these libraries.
 License
 -------
 
-See `lib/nvml/LICENSE.txt` for NVML's (non-F/LOSS) license.
+See `lib/nvml/COPYING.txt` for NVML's (non-F/LOSS) license.
 
 Copyright (c) 2013 Erik Price
 
