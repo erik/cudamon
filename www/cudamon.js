@@ -22,6 +22,15 @@ function init(data) {
 }
 
 function update(data) {
+    if(data == null) {
+        $('#connection').text("Interrupted");
+        $('#connection').addClass("interrupt");
+        return;
+    } else {
+        $('#connection').text("OK");
+        $('#connection').removeClass("interrupt");
+    }
+
     for(var i in data.devices) {
         var dev = data.devices[i];
 

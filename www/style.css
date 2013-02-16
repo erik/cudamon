@@ -18,6 +18,10 @@ body {
     text-align: left;
 }
 
+.interrupt {
+    color: red;
+}
+
 #info span {
     text-transform: capitalize;
     font-size: small;
