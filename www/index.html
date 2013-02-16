@@ -3,6 +3,7 @@
 <html>
   <head>
     <link type="text/css" rel="stylesheet" href="vendor/rickshaw.min.css">
+    <link type="text/css" rel="stylesheet" href="style.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.15/jquery-ui.min.js"></script>
@@ -16,42 +17,34 @@
   </head>
 
   <body>
+    <div id="content">
 
-    <style>
-      #chart_container {
-      display: inline-block;
-      font-family: Arial, Helvetica, sans-serif;
-      }
-      #chart {
-      float: left;
-      }
-      #legend {
-      float: left;
-      margin-left: 15px;
-      }
-      #offset_form {
-      float: left;
-      margin: 2em 0 0 15px;
-      font-size: 13px;
-      }
-      #y_axis {
-      float: left;
-      width: 40px;
-      }
-    </style>
+      <div id="top">
+        <h1> CUDAMON ON HOSTGOESHERE</h1>
+      </div>
 
-    <h1>cudamon</h1>
+      <div id="header">
+        <div id="navbar">
+          <p>cudamon</p>
+          <ul id="graphs-list">
+          </ul>
+        </div>
+      </div>
 
-    <div class="chart_container" id="temperature">
-      <div id="y_axis"></div>
-      <div id="chart"></div>
-      <div id="legend"></div>
-    </div>
+      <div id="body">
+        <div class="chart_container disabled" id="temperature">
+          <div id="y_axis"></div>
+          <div id="chart"></div>
+          <div id="legend"></div>
+        </div>
 
-    <div class="chart_container" id="power">
-      <div id="y_axis"></div>
-      <div id="chart"></div>
-      <div id="legend"></div>
+        <div class="chart_container disabled" id="power">
+          <div id="y_axis"></div>
+          <div id="chart"></div>
+          <div id="legend"></div>
+        </div>
+
+      <div style="clear: both;"></div>
     </div>
 
     <script src="cudamon.js" type="text/javascript"></script>

@@ -1,0 +1,90 @@
+body {
+    font-family: Helvetica, arial, sans-serif;
+}
+
+#top {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+ul {
+    margin-top: 0;
+    list-style-type: none;
+}
+
+li {
+    margin-left: 5px;
+}
+
+del {
+    color: #8c8c8c;
+}
+
+li a {
+    text-decoration: none;
+    color: #8c8c8c;
+}
+
+li a:hover {
+    color: #000;
+}
+
+#content {
+    width: 900px;
+    margin-top: 10px;
+}
+
+#header {
+    float: left;
+    width: 100px;
+}
+
+#navbar p {
+    margin-bottom: 2px;
+}
+
+#navbar {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    height: 150px;
+    text-align:center;
+    color: #2c2c2c;
+    width: 90px;
+}
+
+#navbar p {
+    font-family: Helvetica, arial, sans-serif;
+}
+
+#body {
+    float: right;
+    background: #FCFCFC;
+}
+
+
+/* Rickshaw CSS */
+.chart_container {
+    padding: 5px;
+    float: left;
+    position: relative;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#chart {
+    display: inline-block;
+    float: left;
+}
+
+#legend {
+    float: right;
+    margin-left: 15px;
+}
+
+#y_axis {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+}

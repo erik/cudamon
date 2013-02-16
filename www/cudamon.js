@@ -57,6 +57,7 @@ function addGraph(key) {
 
     if(series[key].length == 0) {
         console.log('No GPUs support "' + key + '" disabling...');
+        $('#graphs-list').append('<li><del>' + key + '</del></li>');
         return;
     }
 
@@ -96,6 +97,8 @@ function addGraph(key) {
         graph: graph,
         legend: legend
     });
+
+    $('#graphs-list').append('<li><a href="#' + key +'">' + key + '</a></li>');
 
     graph.render();
     graphs.push(graph);
