@@ -63,8 +63,6 @@ li a:hover {
 
 #navbar {
     position: fixed;
-    top: 10px;
-    left: 10px;
     height: 150px;
     text-align:center;
     color: #2c2c2c;
@@ -84,17 +82,17 @@ li a:hover {
     position: relative;
 }
 
-#chart {
+.chart {
     display: inline-block;
     float: left;
 }
 
-#legend {
+.legend {
     float: right;
     margin-left: 15px;
 }
 
-#y_axis {
+.y_axis {
     position: absolute;
     top: 0;
     bottom: 0;

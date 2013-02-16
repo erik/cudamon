@@ -80,7 +80,7 @@ function addGraph(key) {
     }
 
     var graph = new Rickshaw.Graph({
-        element: document.querySelector('#' + key + " #chart"),
+        element: document.querySelector('#' + key + " .chart"),
         width: 540,
         height: 200,
         renderer: 'line',
@@ -103,11 +103,11 @@ function addGraph(key) {
     var y_axis = new Rickshaw.Graph.Axis.Y( {
         graph: graph,
         tickFormat: function(y) { return y + "C"; },
-        element: document.querySelector('#' + key + ' #y_axis'),
+        element: document.querySelector('#' + key + ' .y_axis'),
     });
 
     var legend = new Rickshaw.Graph.Legend( {
-        element: document.querySelector('#' + key + ' #legend'),
+        element: document.querySelector('#' + key + ' .legend'),
         graph: graph
     } );
 
