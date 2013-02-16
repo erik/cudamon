@@ -2,6 +2,8 @@ var palette = new Rickshaw.Color.Palette();
 
 var driver_version = "", nvml_version = "";
 
+var devices = []
+
 var series = {
     temperature: [],
     power: []
@@ -13,7 +15,7 @@ function init(data) {
     driver_version = data.driver_version;
     nvml_version = data.nvml_version;
 
-    $('#top h1').append(data.host);
+    $('#header h1').append(data.host);
     $('#info #driver').append(driver_version);
     $('#info #nvml').append(nvml_version);
     $('#info #gpus').append(data.devices.length);
@@ -29,11 +31,18 @@ function update(data) {
             // Just skip if the device doesn't support this operation.
             if(dev[key] == null) continue;
 
+            if(devices[i] == null) {
+                devices[i] = { color: palette.color() };
+            }
+
+            var color = devices[i].color || palette.color();
+            devices[i].color = color;
+
             if(ser[i] == null) {
                 ser[i] = {
                     name: dev.name,
                     data: [{x: data.time, y: dev[key]}],
-                    color: palette.color()
+                    color: color
                 };
             } else {
                 ser[i].data.push({ x: data.time, y: dev[key]});
@@ -78,6 +87,12 @@ function addGraph(key) {
         $('#graphs-list').append('<li><del>' + key + '</del></li>');
         return;
     }
+
+    $('#body').append('<div class="chart_container" id="' + key +'">' +
+                      '<div class="chart"></div>' +
+                      '<div class="legend"><span class="name">' + key +
+                      '</span></div>' +
+                      '</div>');
 
     var graph = new Rickshaw.Graph({
         element: document.querySelector('#' + key + " .chart"),
