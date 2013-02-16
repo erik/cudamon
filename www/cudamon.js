@@ -3,10 +3,11 @@ var palette = new Rickshaw.Color.Palette();
 var driver_version = "", nvml_version = "";
 
 var series = {
-    temperature: []
+    temperature: [],
+    power: []
 };
 
-var graph = null;
+var graphs = [];
 
 function update(data) {
     driver_version = data.driver_version;
@@ -15,29 +16,34 @@ function update(data) {
     for(var i in data.devices) {
         var dev = data.devices[i];
 
-        // TODO: get time from server
-        var time = (new Date).getTime() / 1000;
+        for(var key in series) {
+            var ser = series[key];
 
-        if(series.temperature[i] == null) {
-            series.temperature[i] = { name: dev.name,
-                                      data: [{x:time,y:dev.temperature}],
-                                      color: palette.color()
-                                    };
-        } else {
-            series.temperature[i]['data'].push({x:time, y:dev.temperature});
+            // Just skip if the device doesn't support this operation.
+            if(dev[key] == null) continue;
+
+            if(ser[i] == null) {
+                ser[i] = {
+                    name: dev.name,
+                    data: [{x: data.time, y: dev[key]}],
+                    color: palette.color()
+                };
+            } else {
+                ser[i].data.push({ x: data.time, y: dev[key]});
+            }
+
+            while(ser[i].data.length >= 100) {
+                ser[i].data.splice(0,1);
+            }
         }
-
-        while(series.temperature[i].data.length >= 100) {
-            series.temperature[i].data.shift();
-        }
-
     }
 
-    graph && graph.update() && graph.render();
+    for(var i in graphs) {
+        graphs[i].update();
+    }
 }
 
-// Initialize
-function callUpdate() {
+function ajaxUpdate() {
     update($.parseJSON($.ajax({
         type: 'GET',
         dataType: 'json',
@@ -47,43 +53,58 @@ function callUpdate() {
     }).responseText));
 }
 
-callUpdate();
+function addGraph(key) {
 
-setInterval(callUpdate, 1000);
+    if(series[key].length == 0) {
+        console.log('No GPUs support "' + key + '" disabling...');
+        return;
+    }
 
-graph = new Rickshaw.Graph( {
-    element: document.getElementById("chart"),
-    width: 540,
-    height: 240,
-    renderer: 'line',
-    series: series.temperature
-});
+    var graph = new Rickshaw.Graph({
+        element: document.querySelector('#' + key + " #chart"),
+        width: 540,
+        height: 200,
+        renderer: 'line',
+        series: series[key]
+    });
 
-var hoverDetail = new Rickshaw.Graph.HoverDetail( {
-    graph: graph
-});
+    graph.key = key;
 
-var time = new Rickshaw.Fixtures.Time();
-
-var x_axis = new Rickshaw.Graph.Axis.Time({
-    graph: graph,
-    timeUnit: time.unit('15 second')
-});
-
-var y_axis = new Rickshaw.Graph.Axis.Y( {
-    graph: graph,
-    tickFormat: function(y) { return y + "C"; },
-    element: document.getElementById('y_axis'),
-});
-
-var legend = new Rickshaw.Graph.Legend( {
-        element: document.querySelector('#legend'),
+    var hoverDetail = new Rickshaw.Graph.HoverDetail( {
         graph: graph
-} );
+    });
 
-var highlighter = new Rickshaw.Graph.Behavior.Series.Highlight({
-    graph: graph,
-    legend: legend
-});
+    var time = new Rickshaw.Fixtures.Time();
 
-graph.render();
+    var x_axis = new Rickshaw.Graph.Axis.Time({
+        graph: graph,
+        timeUnit: time.unit('minute')
+    });
+
+    var y_axis = new Rickshaw.Graph.Axis.Y( {
+        graph: graph,
+        tickFormat: function(y) { return y + "C"; },
+        element: document.querySelector('#' + key + ' #y_axis'),
+    });
+
+    var legend = new Rickshaw.Graph.Legend( {
+        element: document.querySelector('#' + key + ' #legend'),
+        graph: graph
+    } );
+
+    var highlighter = new Rickshaw.Graph.Behavior.Series.Highlight({
+        graph: graph,
+        legend: legend
+    });
+
+    graph.render();
+    graphs.push(graph);
+}
+
+// Initialize
+ajaxUpdate();
+
+addGraph('temperature');
+addGraph('power');
+
+setInterval(ajaxUpdate, 1000);

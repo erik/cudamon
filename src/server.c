@@ -78,6 +78,8 @@ static void ajax_send_update(struct mg_connection *conn)
     struct device dev = monitor->devices[i];
     mg_printf(conn, "\"index\": %d", dev.index);
 
+    JSON_KEY_STRING("name", dev.name);
+
     if(dev.feature_support & TEMPERATURE)
       JSON_KEY_INTEGER("temperature", dev.temperature);
 
