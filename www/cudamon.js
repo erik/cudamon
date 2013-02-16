@@ -9,10 +9,17 @@ var series = {
 
 var graphs = [];
 
-function update(data) {
+function init(data) {
     driver_version = data.driver_version;
     nvml_version = data.nvml_version;
 
+    $('#top h1').append(data.host);
+    $('#info #driver').append(driver_version);
+    $('#info #nvml').append(nvml_version);
+    $('#info #gpus').append(data.devices.length);
+}
+
+function update(data) {
     for(var i in data.devices) {
         var dev = data.devices[i];
 
@@ -42,6 +49,17 @@ function update(data) {
         graphs[i].update();
     }
 }
+
+function ajaxInit() {
+    init($.parseJSON($.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url:"ajax/init",
+        async: false,
+        data: {},
+    }).responseText));
+}
+
 
 function ajaxUpdate() {
     update($.parseJSON($.ajax({
@@ -104,7 +122,9 @@ function addGraph(key) {
     graphs.push(graph);
 }
 
-// Initialize
+ajaxInit();
+
+// Initialize data
 ajaxUpdate();
 
 addGraph('temperature');

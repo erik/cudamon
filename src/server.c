@@ -57,6 +57,7 @@ static void ajax_send_init(struct mg_connection *conn)
 
   JSON_KEY_STRING("driver_version", monitor->driver_version);
   JSON_KEY_STRING("nvml_version", monitor->nvml_version);
+  JSON_KEY_STRING("host", monitor->hostname);
 
   mg_printf(conn, "}");
 }

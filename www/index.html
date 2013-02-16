@@ -2,6 +2,7 @@
 
 <html>
   <head>
+    <link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
     <link type="text/css" rel="stylesheet" href="vendor/rickshaw.min.css">
     <link type="text/css" rel="stylesheet" href="style.css">
 
@@ -20,13 +21,26 @@
     <div id="content">
 
       <div id="top">
-        <h1> CUDAMON ON HOSTGOESHERE</h1>
+        <h1>cudamon on </h1>
+
+        <div id="info">
+          <div style="float:left;">
+            <div id="driver"><span>Driver Version:</span> </div>
+            <div id="nvml"><span>NVML Version:</span> </div>
+          </div>
+          <div style="float:right;">
+            <div id="gpus"><span>Attached GPUs:</span> </div>
+          </div>
+          <div style="clear:both;"></div>
+        </div>
+
       </div>
 
       <div id="header">
         <div id="navbar">
           <p>cudamon</p>
           <ul id="graphs-list">
+            <li><a href="#info">information</a></li>
           </ul>
         </div>
       </div>

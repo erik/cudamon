@@ -40,6 +40,8 @@ static void get_device_features(struct device* dev)
 
 static void init_device_info(struct monitor* mon)
 {
+  gethostname(mon->hostname, 64);
+
   NVML_TRY(nvmlSystemGetDriverVersion(mon->driver_version,
                                       sizeof(mon->driver_version)));
   NVML_TRY(nvmlSystemGetNVMLVersion(mon->nvml_version,
