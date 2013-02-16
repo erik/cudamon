@@ -60,6 +60,38 @@ The web-based client utilizes Shutterstock's Rickshaw graphing
 library, which itself is based on d3.js. jQuery and jQuery-ui are also
 pulled in by these libraries.
 
+Development
+-----------
+
+How useful this monitor is to you will depend heavily on how much my
+needs match yours. I haven't used CUDA for all that long, so my needs
+may well not match the average person's. If you have something you
+want to add to the server or the client, please, feel free to do so
+and shoot me a pull request. I am also open to criticism / hatred /
+suggestions.
+
+### Server
+
+The server component of cudamon is very simple, a few hundred lines of
+C based off of a couple of solid libraries doing all the heavy
+lifting. I didn't implement all of NVML's functionality, so if you
+find some metric that you think should be tracked, feel free to add it
+or just let me know that it should be implemented. This is currently a
+one-person project done for my own benefit while working on CUDA
+programs, so I have no idea what other people would want or need.
+
+### Client
+
+If you think the client is horribly ugly (I don't blame you) and want
+to focus on fixing that, try running `./faker.rb`, which just serves
+up some random fake data from port `4567`. This could be useful if you
+want to test locally and don't have a CUDA device installed, or have a
+device that doesn't implement many of the features. You should install
+Sinatra (`gem install sinatra`) if you want to use `faker.rb`.
+
+My design abilities are pretty poor, so I am especially open to any
+improvements on the client side.
+
 License
 -------
 
