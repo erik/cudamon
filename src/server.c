@@ -21,8 +21,17 @@ static const char* ajax_reply_start =
 
 static struct monitor* monitor = NULL;
 
+#define JSON_KEY_ARRAY(key) mg_printf(conn, ",\"%s\": [ ", key)
 #define JSON_KEY_STRING(key, value) mg_printf(conn, ",\"%s\": \"%s\"", key, value)
 #define JSON_KEY_INTEGER(key, value) mg_printf(conn, ",\"%s\": %d", key, value)
+#define JSON_STRING(str) mg_printf(conn, ",\"%s\"", str)
+
+// Versions of the macro for the first value in a series (i.e. don't
+// print out ',')
+#define JSON_KEY_ARRAY_(key) mg_printf(conn, "\"%s\": [ ", key)
+#define JSON_KEY_STRING_(key, value) mg_printf(conn, "\"%s\": \"%s\"", key, value)
+#define JSON_KEY_INTEGER_(key, value) mg_printf(conn, "\"%s\": %d", key, value)
+#define JSON_STRING_(str) mg_printf(conn, "\"%s\"", str)
 
 // Send one-time information to the client
 static void ajax_send_init(struct mg_connection *conn)
@@ -31,7 +40,7 @@ static void ajax_send_init(struct mg_connection *conn)
 
   mg_printf(conn, "{");
 
-  mg_printf(conn, "\"devices\" : [");
+  JSON_KEY_ARRAY_("devices");
   for(unsigned i = 0; i < monitor->dev_count; ++i) {
     if(i != 0) mg_printf(conn, ",");
 
@@ -39,16 +48,30 @@ static void ajax_send_init(struct mg_connection *conn)
 
     struct device dev = monitor->devices[i];
 
-    mg_printf(conn, "\"index\": %d", dev.index);
+    JSON_KEY_INTEGER_("index", dev.index);
 
     JSON_KEY_STRING("name",   dev.name);
     JSON_KEY_STRING("serial", dev.serial);
     JSON_KEY_STRING("uuid",   dev.uuid);
 
-    mg_printf(conn, ",\"pci\": { \"bus\": \"%s\"", dev.pci.busId);
+    mg_printf(conn, ",\"pci\": {");
+    JSON_KEY_STRING_("bus", dev.pci.busId);
     JSON_KEY_INTEGER("devId", dev.pci.pciDeviceId);
     JSON_KEY_INTEGER("subId", dev.pci.pciSubSystemId);
     mg_printf(conn, "}");
+
+    JSON_KEY_ARRAY("features");
+
+    // We know it can at least print its name
+    JSON_STRING_("name");
+
+    if(dev.feature_support & TEMPERATURE)  JSON_STRING("temperature");
+    if(dev.feature_support & COMPUTE_MODE) JSON_STRING("compute");
+    if(dev.feature_support & POWER_USAGE)  JSON_STRING("power");
+    if(dev.feature_support & MEMORY_INFO)  JSON_STRING("memory");
+    if(dev.feature_support & CLOCK_INFO)   JSON_STRING("clock");
+
+    mg_printf(conn, "]");
 
     mg_printf(conn, "}");
 
@@ -69,15 +92,14 @@ static void ajax_send_update(struct mg_connection *conn)
 
   mg_printf(conn, "{");
 
-  mg_printf(conn, "\"devices\" : [");
-
+  JSON_KEY_ARRAY_("devices");
   for(unsigned i = 0; i < monitor->dev_count; ++i) {
     if(i != 0) mg_printf(conn, ",");
 
     mg_printf(conn, "{");
 
     struct device dev = monitor->devices[i];
-    mg_printf(conn, "\"index\": %d", dev.index);
+    JSON_KEY_INTEGER_("index", dev.index);
 
     JSON_KEY_STRING("name", dev.name);
 
@@ -89,9 +111,9 @@ static void ajax_send_update(struct mg_connection *conn)
 
     // Memory is reported in bytes, but we'll just return MiB here.
     if(dev.feature_support & MEMORY_INFO) {
-      mg_printf(conn, ",\"memory\": { \"total\": %d",
-                (unsigned)(dev.memory.total / 1024 / 1024));
+      mg_printf(conn, ",\"memory\": {");
 
+      JSON_KEY_INTEGER_("total", (unsigned)(dev.memory.total / 1024 / 1024));
       JSON_KEY_INTEGER("free", (unsigned)(dev.memory.free / 1024 / 1024));
       JSON_KEY_INTEGER("used", (unsigned)(dev.memory.used / 1024 / 1024));
 
@@ -99,9 +121,10 @@ static void ajax_send_update(struct mg_connection *conn)
     }
 
     if(dev.feature_support & CLOCK_INFO) {
-      mg_printf(conn, ",\"clock\" : { \"graphics\": %d",
-                dev.clock[NVML_CLOCK_GRAPHICS]);
+      mg_printf(conn, ",\"clock\" : {");
 
+      JSON_KEY_INTEGER_("graphics",
+                        dev.clock[NVML_CLOCK_GRAPHICS]);
       JSON_KEY_INTEGER("sm", dev.clock[NVML_CLOCK_SM]);
       JSON_KEY_INTEGER("mem", dev.clock[NVML_CLOCK_MEM]);
 
