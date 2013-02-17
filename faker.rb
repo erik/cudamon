@@ -7,11 +7,19 @@ require 'sinatra'
 require 'json'
 
 $devices = [
-         { :name => "Device1", :index => 0, :serial => "abcd1"},
-         { :name => "Device2", :index => 1, :serial => "abcd2"},
-         { :name => "Device3", :index => 2, :serial => "abcd3"},
-         { :name => "Device4", :index => 3, :serial => "abcd4"}
-]
+            { :name => "Device1", :index => 0, :serial => "abcd1",
+              :features => ["temperature", "compute", "power",
+                            "memory", "clock", "name"]},
+            { :name => "Device2", :index => 1, :serial => "abcd2",
+              :features => ["temperature", "compute", "power",
+                            "memory", "clock", "name"]},
+            { :name => "Device3", :index => 2, :serial => "abcd3",
+              :features => ["temperature", "compute", "power",
+                            "memory", "clock", "name"]},
+            { :name => "Device4", :index => 3, :serial => "abcd4",
+              :features => ["temperature", "compute", "power",
+                            "memory", "clock", "name"]}
+           ]
 
 set :public_folder, 'www/'
 
