@@ -122,6 +122,9 @@ function addGraph(key, obj) {
         series: graphs[key].series
     });
 
+    if(obj.min != null) graph.min = obj.min;
+    if(obj.max != null) graph.max = obj.max;
+
     graphs[key].key = key;
     graphs[key].getData = obj.getData || function(dev) { return dev[key]; };
 
@@ -171,6 +174,8 @@ addGraph('power',
 
 addGraph('memory',
          { tickFormat: function(y) { return y + "%"; },
+           min: 0,
+           max: 100,
            getData: function(dev) {
                return +dev.memory.used / +dev.memory.total * 100;
            }});
