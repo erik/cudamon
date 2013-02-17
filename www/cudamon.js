@@ -52,7 +52,7 @@ function update(data) {
 
             if(graph.series[i] == null) {
                 graph.series[i] = {
-                    name: dev.name,
+                    name: dev.name + ":" + dev.index,
                     data: [{x: data.time, y: val}],
                     color: color
                 };
