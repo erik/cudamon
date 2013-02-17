@@ -40,12 +40,16 @@ del {
     color: #8c8c8c;
 }
 
-li a {
+#navbar li a {
     text-decoration: none;
     color: #8c8c8c;
 }
 
-li a:hover {
+#navbar li:before {
+    content: "» ";
+}
+
+#navbar li a:hover {
     color: #000;
 }
 
@@ -62,15 +66,13 @@ li a:hover {
 
 #navbar {
     position: fixed;
-    height: 150px;
-    text-align:center;
+    text-align: left;
     color: #2c2c2c;
-    width: 90px;
+    width: 150px;
 }
 
 #body {
     float: right;
-    background: #FCFCFC;
     margin-top: 20px;
 }
 

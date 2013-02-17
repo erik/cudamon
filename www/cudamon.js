@@ -7,7 +7,7 @@ var devices = [];
 var graphs = {
     temperature: { series: [] },
     power: { series: [] },
-    memory: { series: [] },
+    memory: { series: [] }
 };
 
 function init(data) {
@@ -153,6 +153,11 @@ function addGraph(key, obj) {
     var highlighter = new Rickshaw.Graph.Behavior.Series.Highlight({
         graph: graph,
         legend: legend
+    });
+
+    var shelving = new Rickshaw.Graph.Behavior.Series.Toggle( {
+	graph: graph,
+	legend: legend
     });
 
     $('#graphs-list').append('<li><a href="#' + key +'">' + key + '</a></li>');

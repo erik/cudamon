@@ -29,7 +29,7 @@ end
 get '/ajax/update' do
   $devices.each {|dev|
     dev['memory'] = { :free => rand(200),
-      :used => 3000 + rand(1000),
+      :used => rand(1000),
       :total => 4096
     }
     dev['temperature'] = 50 + (rand(20) - 10)
