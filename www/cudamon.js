@@ -2,14 +2,13 @@ var palette = new Rickshaw.Color.Palette();
 
 var driver_version = "", nvml_version = "";
 
-var devices = []
+var devices = [];
 
-var series = {
-    temperature: [],
-    power: []
+var graphs = {
+    temperature: { series: [] },
+    power: { series: [] },
+    memory: { series: [] },
 };
-
-var graphs = [];
 
 function init(data) {
     driver_version = data.driver_version;
@@ -34,8 +33,8 @@ function update(data) {
     for(var i in data.devices) {
         var dev = data.devices[i];
 
-        for(var key in series) {
-            var ser = series[key];
+        for(var key in graphs) {
+            var graph = graphs[key];
 
             // Just skip if the device doesn't support this operation.
             if(dev[key] == null) continue;
@@ -47,24 +46,31 @@ function update(data) {
             var color = devices[i].color || palette.color();
             devices[i].color = color;
 
-            if(ser[i] == null) {
-                ser[i] = {
+            var val = 0;
+            if(typeof graph.getData != 'undefined')
+                val = graph.getData(dev);
+
+            if(graph.series[i] == null) {
+                graph.series[i] = {
                     name: dev.name,
-                    data: [{x: data.time, y: dev[key]}],
+                    data: [{x: data.time, y: val}],
                     color: color
                 };
             } else {
-                ser[i].data.push({ x: data.time, y: dev[key]});
+                graph.series[i].data.push({ x: data.time, y: val});
             }
 
-            while(ser[i].data.length >= 100) {
-                ser[i].data.splice(0,1);
+            while(graph.series[i].data.length >= 100) {
+                graph.series[i].data.splice(0,1);
             }
         }
     }
 
     for(var i in graphs) {
-        graphs[i].update();
+        if(graphs[i].graph != null) {
+            graphs[i].graph.update();
+            graphs[i].graph.update();
+        }
     }
 }
 
@@ -89,9 +95,14 @@ function ajaxUpdate() {
     }).responseText));
 }
 
-function addGraph(key) {
+function addGraph(key, obj) {
+    if(typeof obj === 'undefined') {
+        obj = {};
+    }
 
-    if(series[key].length == 0) {
+    var fmt = obj.tickFormat || function(y) { return y; };
+
+    if(graphs[key].series.length == 0) {
         console.log('No GPUs support "' + key + '" disabling...');
         $('#graphs-list').append('<li><del>' + key + '</del></li>');
         return;
@@ -108,10 +119,11 @@ function addGraph(key) {
         width: 540,
         height: 200,
         renderer: 'line',
-        series: series[key]
+        series: graphs[key].series
     });
 
-    graph.key = key;
+    graphs[key].key = key;
+    graphs[key].getData = obj.getData || function(dev) { return dev[key]; };
 
     var hoverDetail = new Rickshaw.Graph.HoverDetail( {
         graph: graph
@@ -126,7 +138,7 @@ function addGraph(key) {
 
     var y_axis = new Rickshaw.Graph.Axis.Y( {
         graph: graph,
-        tickFormat: function(y) { return y + "C"; },
+        tickFormat: fmt,
         element: document.querySelector('#' + key + ' .y_axis'),
     });
 
@@ -143,7 +155,7 @@ function addGraph(key) {
     $('#graphs-list').append('<li><a href="#' + key +'">' + key + '</a></li>');
 
     graph.render();
-    graphs.push(graph);
+    graphs[key].graph = graph;
 }
 
 ajaxInit();
@@ -151,7 +163,16 @@ ajaxInit();
 // Initialize data
 ajaxUpdate();
 
-addGraph('temperature');
-addGraph('power');
+addGraph('temperature',
+         { tickFormat: function(y) { return y + "C"; } } );
+
+addGraph('power',
+        { tickFormat: function(y) { return y + "mW"; } } );
+
+addGraph('memory',
+         { tickFormat: function(y) { return y + "%"; },
+           getData: function(dev) {
+               return +dev.memory.used / +dev.memory.total * 100;
+           }});
 
 setInterval(ajaxUpdate, 1000);
