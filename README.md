@@ -17,7 +17,7 @@ it is not featureful enough to warrant an installation yet.
 
 If you do decide to put `cudamond` somewhere, do keep in mind that the
 `cudamond` binary and the `www/` directory need to be in the same
-directory. Or you could modify the source in `www/server.c` to change
+directory. Or you could modify the source in `src/server.c` to change
 this location.
 
 This will be configurable at some point in the future.
