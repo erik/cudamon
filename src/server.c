@@ -98,6 +98,16 @@ static void ajax_send_update(struct mg_connection *conn)
       mg_printf(conn, "}");
     }
 
+    if(dev.feature_support & CLOCK_INFO) {
+      mg_printf(conn, ",\"clock\" : { \"graphics\": %d",
+                dev.clock[NVML_CLOCK_GRAPHICS]);
+
+      JSON_KEY_INTEGER("sm", dev.clock[NVML_CLOCK_SM]);
+      JSON_KEY_INTEGER("mem", dev.clock[NVML_CLOCK_MEM]);
+
+      mg_printf(conn, "}");
+    }
+
     mg_printf(conn, "}");
   }
   mg_printf(conn, "]");
