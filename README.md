@@ -1,8 +1,8 @@
 cudamon
 =======
 
-GPU monitoring daemon for CUDA devices. It is very much in progress,
-and not generally useful quite yet.
+GPU monitor for CUDA devices. It is very much in progress, and not 
+generally useful quite yet.
 
 Check back later.
 
