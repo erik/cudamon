@@ -7,7 +7,8 @@ var devices = [];
 var graphs = {
     temperature: { series: [] },
     power: { series: [] },
-    memory: { series: [] }
+    memory: { series: [] },
+    clock: { series: [] },
 };
 
 function init(data) {
@@ -108,9 +109,11 @@ function addGraph(key, obj) {
         return;
     }
 
+    var name = obj.name || key;
+
     $('#body').append('<div class="chart_container" id="' + key +'">' +
                       '<div class="chart"></div>' +
-                      '<div class="legend"><span class="name">' + key +
+                      '<div class="legend"><span class="name">' + name +
                       '</span></div>' +
                       '</div>');
 
@@ -160,7 +163,7 @@ function addGraph(key, obj) {
 	legend: legend
     });
 
-    $('#graphs-list').append('<li><a href="#' + key +'">' + key + '</a></li>');
+    $('#graphs-list').append('<li><a href="#' + key +'">' + name + '</a></li>');
 
     graph.render();
     graphs[key].graph = graph;
@@ -184,5 +187,12 @@ addGraph('memory',
            getData: function(dev) {
                return +dev.memory.used / +dev.memory.total * 100;
            }});
+
+// TODO: Add other clock speeds in here as well
+addGraph('clock',
+         { name: 'graphics clock',
+           tickFormat: function(y) { return y + "MHz"; },
+           getData: function(dev) { return dev.clock.graphics; }});
+
 
 setInterval(ajaxUpdate, 1000);

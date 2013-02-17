@@ -32,6 +32,13 @@ get '/ajax/update' do
       :used => rand(1000),
       :total => 4096
     }
+
+    dev['clock'] = {
+      :graphics => 500 + rand(100),
+      :sm => 500 + rand(100),
+      :mem => 500 + rand(100)
+    }
+
     dev['temperature'] = 50 + (rand(20) - 10)
     dev['power'] = 50 + (rand(20) - 10)
   }
