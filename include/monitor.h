@@ -8,7 +8,8 @@ enum feature {
   COMPUTE_MODE = 1 << 1,
   POWER_USAGE  = 1 << 2,
   MEMORY_INFO  = 1 << 3,
-  CLOCK_INFO   = 1 << 4
+  CLOCK_INFO   = 1 << 4,
+  FAN_INFO     = 1 << 5
 };
 
 struct device {
@@ -29,6 +30,9 @@ struct device {
 
   // Maximum clock speeds, in MHz
   nvmlClockType_t clock[NVML_CLOCK_COUNT], max_clock[NVML_CLOCK_COUNT];
+
+  // Fan speed, percentage
+  unsigned fan;
 
   char name[NVML_DEVICE_NAME_BUFFER_SIZE];
   char serial[NVML_DEVICE_SERIAL_BUFFER_SIZE];

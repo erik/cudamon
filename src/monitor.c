@@ -36,6 +36,11 @@ static void get_device_features(struct device* dev)
 
     dev->feature_support |= CLOCK_INFO;
   }
+
+  if(nvmlDeviceGetFanSpeed(dev->handle, &dev->fan) == NVML_SUCCESS) {
+    dev->feature_support |= FAN_INFO;
+  }
+
 }
 
 static void init_device_info(struct monitor* mon)
@@ -74,8 +79,10 @@ static void init_device_info(struct monitor* mon)
       dev.event_set = NULL;
     }
 
-    for(nvmlClockType_t type = NVML_CLOCK_GRAPHICS; type < NVML_CLOCK_COUNT; ++type) {
-      if(NVML_TRY(nvmlDeviceGetMaxClockInfo(dev.handle, type, &dev.max_clock[type])))
+    for(nvmlClockType_t type = NVML_CLOCK_GRAPHICS; type < NVML_CLOCK_COUNT;
+        ++type) {
+      if(NVML_TRY(nvmlDeviceGetMaxClockInfo(dev.handle, type,
+                                            &dev.max_clock[type])))
         break;
     }
 
@@ -112,9 +119,14 @@ static void update_device_info(struct monitor* mon)
     }
 
     if(dev->feature_support & CLOCK_INFO) {
-      for(nvmlClockType_t type = NVML_CLOCK_GRAPHICS; type < NVML_CLOCK_COUNT; ++type) {
+      for(nvmlClockType_t type = NVML_CLOCK_GRAPHICS; type < NVML_CLOCK_COUNT;
+          ++type) {
         NVML_TRY(nvmlDeviceGetClockInfo(dev->handle, type, &dev->clock[type]));
       }
+    }
+
+    if(dev->feature_support & FAN_INFO) {
+      NVML_TRY(nvmlDeviceGetFanSpeed(dev->handle, &dev->fan));
     }
 
     if(dev->event_set != NULL) {
