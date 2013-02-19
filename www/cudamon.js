@@ -1,15 +1,14 @@
 var palette = new Rickshaw.Color.Palette();
-
+var SERIES_MAX = 100;
 var driver_version = "", nvml_version = "";
-
 var devices = [];
 
 var graphs = {
+    clock:       { series: [] },
+    fan:         { series: [] },
+    memory:      { series: [] },
+    power:       { series: [] },
     temperature: { series: [] },
-    power: { series: [] },
-    memory: { series: [] },
-    fan: { series: [] },
-    clock: { series: [] },
     utilization: { series: [] }
 };
 
@@ -70,7 +69,7 @@ function update(data) {
                 graph.series[i].data.push({ x: data.time, y: val});
             }
 
-            while(graph.series[i].data.length >= 100) {
+            while(graph.series[i].data.length >= SERIES_MAX) {
                 graph.series[i].data.splice(0,1);
             }
         }
