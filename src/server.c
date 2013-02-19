@@ -70,6 +70,7 @@ static void ajax_send_init(struct mg_connection *conn)
     if(dev.feature_support & POWER_USAGE)  JSON_STRING("power");
     if(dev.feature_support & MEMORY_INFO)  JSON_STRING("memory");
     if(dev.feature_support & CLOCK_INFO)   JSON_STRING("clock");
+    if(dev.feature_support & FAN_INFO)     JSON_STRING("fan");
 
     mg_printf(conn, "]");
 
@@ -130,6 +131,9 @@ static void ajax_send_update(struct mg_connection *conn)
 
       mg_printf(conn, "}");
     }
+
+    if(dev.feature_support & FAN_INFO)
+      JSON_KEY_INTEGER("fan", dev.fan);
 
     mg_printf(conn, "}");
   }

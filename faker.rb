@@ -9,16 +9,16 @@ require 'json'
 $devices = [
             { :name => "Device1", :index => 0, :serial => "abcd1",
               :features => ["temperature", "compute", "power",
-                            "memory", "clock", "name"]},
+                            "memory", "clock", "name", "fan"]},
             { :name => "Device2", :index => 1, :serial => "abcd2",
               :features => ["temperature", "compute", "power",
-                            "memory", "clock", "name"]},
+                            "memory", "clock", "name", "fan"]},
             { :name => "Device3", :index => 2, :serial => "abcd3",
               :features => ["temperature", "compute", "power",
-                            "memory", "clock", "name"]},
+                            "memory", "clock", "name", "fan"]},
             { :name => "Device4", :index => 3, :serial => "abcd4",
               :features => ["temperature", "compute", "power",
-                            "memory", "clock", "name"]}
+                            "memory", "clock", "name", "fan"]}
            ]
 
 set :public_folder, 'www/'
@@ -46,6 +46,8 @@ get '/ajax/update' do
       :sm => 500 + rand(100),
       :mem => 500 + rand(100)
     }
+
+    dev['fan'] = 50+rand(10)
 
     dev['temperature'] = 50 + (rand(20) - 10)
     dev['power'] = 50 + (rand(20) - 10)

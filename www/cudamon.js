@@ -8,6 +8,7 @@ var graphs = {
     temperature: { series: [] },
     power: { series: [] },
     memory: { series: [] },
+    fan: { series: [] },
     clock: { series: [] },
 };
 
@@ -174,6 +175,8 @@ ajaxInit();
 // Initialize data
 ajaxUpdate();
 
+function fmtPercent(val) { return val + "%"; }
+
 addGraph('temperature',
          { tickFormat: function(y) { return y + "C"; } } );
 
@@ -181,12 +184,15 @@ addGraph('power',
         { tickFormat: function(y) { return y + "mW"; } } );
 
 addGraph('memory',
-         { tickFormat: function(y) { return y + "%"; },
-           min: 0,
-           max: 100,
+         { tickFormat: fmtPercent, min: 0, max: 100,
            getData: function(dev) {
                return +dev.memory.used / +dev.memory.total * 100;
            }});
+
+addGraph('fan',
+         { tickFormat: fmtPercent, min: 0, max: 100,
+           getData: function(dev) { return +dev.fan; }
+         });
 
 // TODO: Add other clock speeds in here as well
 addGraph('clock',
