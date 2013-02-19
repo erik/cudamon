@@ -41,6 +41,9 @@ static void get_device_features(struct device* dev)
     dev->feature_support |= FAN_INFO;
   }
 
+  if(nvmlDeviceGetUtilizationRates(dev->handle, &dev->util) == NVML_SUCCESS) {
+    dev->feature_support |= UTILIZATION_INFO;
+  }
 }
 
 static void init_device_info(struct monitor* mon)

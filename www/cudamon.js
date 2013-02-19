@@ -10,6 +10,7 @@ var graphs = {
     memory: { series: [] },
     fan: { series: [] },
     clock: { series: [] },
+    utilization: { series: [] }
 };
 
 function init(data) {
@@ -20,6 +21,18 @@ function init(data) {
     $('#info #driver').append(driver_version);
     $('#info #nvml').append(nvml_version);
     $('#info #gpus').append(data.devices.length);
+
+    for(var i in data.devices) {
+        devices[i] = devices[i] || { color: palette.color(),
+                                     features: {}
+                                   };
+
+        for(var j in data.devices[i].features) {
+            var feature = data.devices[i].features[j];
+
+            devices[i].features[feature] = true;
+        }
+    }
 }
 
 function update(data) {
@@ -41,12 +54,7 @@ function update(data) {
             // Just skip if the device doesn't support this operation.
             if(dev[key] == null) continue;
 
-            if(devices[i] == null) {
-                devices[i] = { color: palette.color() };
-            }
-
-            var color = devices[i].color || palette.color();
-            devices[i].color = color;
+            var color = devices[i].color;
 
             var val = 0;
             if(typeof graph.getData != 'undefined')
@@ -201,6 +209,12 @@ addGraph('clock',
          { name: 'graphics clock',
            tickFormat: function(y) { return y + "MHz"; },
            getData: function(dev) { return dev.clock.graphics; }});
+
+// TODO: Add GPU utilization as well
+addGraph('utilization',
+         { name: 'memory utilization', min: 0, max: 100,
+           tickFormat: fmtPercent,
+           getData: function(dev) { return +dev.utilization.memory; }});
 
 setInterval(ajaxUpdate, 1000);
 

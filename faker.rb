@@ -8,17 +8,17 @@ require 'json'
 
 $devices = [
             { :name => "Device1", :index => 0, :serial => "abcd1",
-              :features => ["temperature", "compute", "power",
-                            "memory", "clock", "name", "fan"]},
+              :features => ["temperature", "compute", "utilization",
+                            "power", "memory", "clock", "name", "fan"]},
             { :name => "Device2", :index => 1, :serial => "abcd2",
-              :features => ["temperature", "compute", "power",
-                            "memory", "clock", "name", "fan"]},
+              :features => ["temperature", "compute", "utilization",
+                            "power", "memory", "clock", "name", "fan"]},
             { :name => "Device3", :index => 2, :serial => "abcd3",
-              :features => ["temperature", "compute", "power",
-                            "memory", "clock", "name", "fan"]},
+              :features => ["temperature", "compute", "utilization",
+                            "power", "memory", "clock", "name", "fan"]},
             { :name => "Device4", :index => 3, :serial => "abcd4",
-              :features => ["temperature", "compute", "power",
-                            "memory", "clock", "name", "fan"]}
+              :features => ["temperature", "compute", "utilization",
+                            "power", "memory", "clock", "name", "fan"]}
            ]
 
 set :public_folder, 'www/'
@@ -51,6 +51,11 @@ get '/ajax/update' do
 
     dev['temperature'] = 50 + (rand(20) - 10)
     dev['power'] = 50 + (rand(20) - 10)
+
+    dev['utilization'] = {
+      :memory => 50 + rand(50),
+      :gpu => 50 + rand(50)
+    }
   }
 
   JSON.generate({ :devices => $devices,

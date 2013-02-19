@@ -65,12 +65,13 @@ static void ajax_send_init(struct mg_connection *conn)
     // We know it can at least print its name
     JSON_STRING_("name");
 
-    if(dev.feature_support & TEMPERATURE)  JSON_STRING("temperature");
-    if(dev.feature_support & COMPUTE_MODE) JSON_STRING("compute");
-    if(dev.feature_support & POWER_USAGE)  JSON_STRING("power");
-    if(dev.feature_support & MEMORY_INFO)  JSON_STRING("memory");
-    if(dev.feature_support & CLOCK_INFO)   JSON_STRING("clock");
-    if(dev.feature_support & FAN_INFO)     JSON_STRING("fan");
+    if(dev.feature_support & UTILIZATION_INFO) JSON_STRING("utilization");
+    if(dev.feature_support & TEMPERATURE)      JSON_STRING("temperature");
+    if(dev.feature_support & COMPUTE_MODE)     JSON_STRING("compute");
+    if(dev.feature_support & POWER_USAGE)      JSON_STRING("power");
+    if(dev.feature_support & MEMORY_INFO)      JSON_STRING("memory");
+    if(dev.feature_support & CLOCK_INFO)       JSON_STRING("clock");
+    if(dev.feature_support & FAN_INFO)         JSON_STRING("fan");
 
     mg_printf(conn, "]");
 
@@ -128,6 +129,15 @@ static void ajax_send_update(struct mg_connection *conn)
                         dev.clock[NVML_CLOCK_GRAPHICS]);
       JSON_KEY_INTEGER("sm", dev.clock[NVML_CLOCK_SM]);
       JSON_KEY_INTEGER("mem", dev.clock[NVML_CLOCK_MEM]);
+
+      mg_printf(conn, "}");
+    }
+
+    if(dev.feature_support & UTILIZATION_INFO) {
+      mg_printf(conn, ",\"utilization\": {");
+
+      JSON_KEY_INTEGER_("gpu", dev.util.gpu);
+      JSON_KEY_INTEGER("memory", dev.util.memory);
 
       mg_printf(conn, "}");
     }

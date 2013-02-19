@@ -4,12 +4,13 @@
 #define _MONITOR_H
 
 enum feature {
-  TEMPERATURE  = 1 << 0,
-  COMPUTE_MODE = 1 << 1,
-  POWER_USAGE  = 1 << 2,
-  MEMORY_INFO  = 1 << 3,
-  CLOCK_INFO   = 1 << 4,
-  FAN_INFO     = 1 << 5
+  TEMPERATURE      = 1 << 0,
+  COMPUTE_MODE     = 1 << 1,
+  POWER_USAGE      = 1 << 2,
+  MEMORY_INFO      = 1 << 3,
+  CLOCK_INFO       = 1 << 4,
+  FAN_INFO         = 1 << 5,
+  UTILIZATION_INFO = 1 << 6
 };
 
 struct device {
@@ -21,6 +22,8 @@ struct device {
   nvmlComputeMode_t compute_mode;
   nvmlMemory_t memory;
   nvmlEventSet_t event_set;
+  // Current device resource utilization rates (as percentages)
+  nvmlUtilization_t util;
 
   // In Celsius
   unsigned temperature;
