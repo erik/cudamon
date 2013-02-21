@@ -16,7 +16,7 @@ function init(data) {
     driver_version = data.driver_version;
     nvml_version = data.nvml_version;
 
-    $('#header h1').append(data.host);
+    $('#host').append(data.host);
     $('#info #driver').append(driver_version);
     $('#info #nvml').append(nvml_version);
     $('#info #gpus').append(data.devices.length);
@@ -121,15 +121,16 @@ function addGraph(key, obj) {
     var name = obj.name || key;
 
     $('#body').append('<div class="chart_container" id="' + key +'">' +
+                      '<span class="name">' + name + '<br/></span>' +
                       '<div class="chart"></div>' +
-                      '<div class="legend"><span class="name">' + name +
-                      '</span></div>' +
+                      // '<div class="legend"><span class="name">' + name +
+                      // '</span></div>' +
                       '</div>');
 
     var graph = new Rickshaw.Graph({
         element: document.querySelector('#' + key + " .chart"),
-        width: 540,
-        height: 200,
+        width: 350,
+        height: 150,
         renderer: 'line',
         series: graphs[key].series
     });
@@ -157,20 +158,20 @@ function addGraph(key, obj) {
         element: document.querySelector('#' + key + ' .y_axis'),
     });
 
-    var legend = new Rickshaw.Graph.Legend( {
-        element: document.querySelector('#' + key + ' .legend'),
-        graph: graph
-    } );
+    // var legend = new Rickshaw.Graph.Legend( {
+    //     element: document.querySelector('#' + key + ' .legend'),
+    //     graph: graph
+    // } );
 
-    var highlighter = new Rickshaw.Graph.Behavior.Series.Highlight({
-        graph: graph,
-        legend: legend
-    });
+    // var highlighter = new Rickshaw.Graph.Behavior.Series.Highlight({
+    //     graph: graph,
+    //     legend: legend
+    // });
 
-    var shelving = new Rickshaw.Graph.Behavior.Series.Toggle( {
-	graph: graph,
-	legend: legend
-    });
+    // var shelving = new Rickshaw.Graph.Behavior.Series.Toggle( {
+    //     graph: graph,
+    //     legend: legend
+    // });
 
     $('#graphs-list').append('<li id="' + key + '" class="drag"><a href="#' +
                              key +'">' + name + '</a></li>');

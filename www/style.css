@@ -29,6 +29,9 @@ body {
 
 ul {
     margin-top: 0;
+    margin-left: 0;
+    padding-left: 1em;
+    text-indent: -1em;
     list-style-type: none;
 }
 
@@ -37,12 +40,12 @@ li {
 }
 
 del {
-    color: #8c8c8c;
+    color: #7c7c7c;
 }
 
 #navbar li a {
     text-decoration: none;
-    color: #8c8c8c;
+    color: #4c4c4c;
 }
 
 #navbar li:before {
@@ -53,35 +56,36 @@ del {
     color: #000;
 }
 
-#content {
-    width: 900px;
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
-}
+/* #content { */
+/*     margin-left: auto; */
+/*     margin-right: auto; */
+/* } */
 
 #navbar p {
     margin-bottom: 2px;
 }
 
 #navbar {
-    position: fixed;
+    float: left;
+    position: relative;
     text-align: left;
     color: #2c2c2c;
+    background: rgba(0, 255, 255, 0);
+    height: 100%;
+    display: inline-block;
 }
 
-#body {
-    float: right;
-    margin-top: 20px;
+#navbar:hover {
+    background: rgba(255, 255, 255, 20);
+    z-index: 9999;
 }
-
 
 /* Rickshaw CSS */
 .chart_container {
-    padding: 5px;
     float: right;
     position: relative;
-    margin-bottom: 50px;
+    margin: 10px;
+    display: inline-block;
 }
 
 .chart {
