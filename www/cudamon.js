@@ -113,8 +113,6 @@ function addGraph(key, obj) {
 
     if(graphs[key].series.length == 0) {
         console.log('No GPUs support "' + key + '" disabling...');
-        $('#graphs-list').append('<li class="disabled"><del>' + key +
-                                 '</del></li>');
         return;
     }
 
@@ -173,9 +171,6 @@ function addGraph(key, obj) {
     //     legend: legend
     // });
 
-    $('#graphs-list').append('<li id="' + key + '" class="drag"><a href="#' +
-                             key +'">' + name + '</a></li>');
-
     graph.render();
     graphs[key].graph = graph;
 }
@@ -217,20 +212,3 @@ addGraph('utilization',
            getData: function(dev) { return +dev.utilization.memory; }});
 
 setInterval(ajaxUpdate, 1000);
-
-// Update our charts to match the newly sorted list
-$('.sortable').sortable({items: '.drag'}).bind('sortupdate', function() {
-    var container = $('#body');
-    var graphs = container.children();
-    container.empty();
-
-    var origPos = {};
-    for(var i in graphs) {
-        origPos[graphs[i].id] = graphs[i];
-    }
-
-    $('#graphs-list .drag').each(function(i, li) {
-        var id = li.getAttribute('id');
-        container.append(origPos[id]);
-    });
-});
