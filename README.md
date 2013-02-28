@@ -1,10 +1,26 @@
 cudamon
 =======
 
-GPU monitor for CUDA devices. It is very much in progress, and not 
-generally useful quite yet.
+cudamon is a GPU monitor for CUDA devices. It provides a simple server
+process (written in C), and a web-based front-end to keep track of
+that status of the devices. It is meant to provide a really simple way
+of keeping an eye on GPU devices while developing CUDA applications.
 
-Check back later.
+I personally find it more immediately clear to look at than
+`nvidia-smi -l`, but hey, that's me.
+
+It works well enough, but the client is pretty bare. It displays some
+time series graphs and that's about it.
+
+It is also read only. Use `nvidia-smi` if you want to modify the
+GPU.
+
+**NOTE:** If you manage to write a CUDA application that crashes
+particularly spectacularly, you may need to stop all programs that are
+currently using CUDA in any way before being able to run another
+process, which would include `cudamond`. This is at least true using
+multiple GTX680s on recent drivers. I don't know how buggy other
+drivers are. Just a heads up.
 
 Building
 --------
@@ -62,13 +78,6 @@ pulled in by these libraries.
 
 Development
 -----------
-
-How useful this monitor is to you will depend heavily on how much my
-needs match yours. I haven't used CUDA for all that long, so my needs
-may well not match the average person's. If you have something you
-want to add to the server or the client, please, feel free to do so
-and shoot me a pull request. I am also open to criticism / hatred /
-suggestions.
 
 ### Server
 
