@@ -19,7 +19,7 @@ function init(data) {
     $('#host').append(data.host);
     $('#info #driver').append(driver_version);
     $('#info #nvml').append(nvml_version);
-    $('#info #gpus').append(data.devices.length);
+    $('#info #num_gpus').append(data.devices.length);
 
     for(var i in data.devices) {
         devices[i] = devices[i] || { color: palette.color(),

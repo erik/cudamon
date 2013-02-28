@@ -2,20 +2,43 @@ body {
     font-family: Oxygen, Helvetica, arial, sans-serif;
 }
 
-#header h1 {
+#header {
+    width: 100%;
+}
+
+#header #status {
     font-variant: small-caps;
 }
 
-#header {
+#header #sticky {
     width: 100%;
-    text-align: center;
-    margin-bottom: 20px;
+    min-height: 25px;
+
+    border-bottom: solid #ccc 1px;
 }
 
 #header #info {
-    width: 50%;
-    margin: auto;
+    -webkit-border-bottom-right-radius: 20px;
+    -webkit-border-bottom-left-radius: 20px;
+    -moz-border-radius-bottomright: 20px;
+    -moz-border-radius-bottomleft: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+
+    border: solid #ccc 1px;
+    border-top: none;
+
+    padding: 10px;
+    margin-borrom: 20px;
     text-align: left;
+}
+
+.down:before {
+    content: '\2193';
+}
+
+.up:before {
+    content: '\2191';
 }
 
 .interrupt {
@@ -28,11 +51,13 @@ body {
 }
 
 #content {
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
 
 #body {
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
 

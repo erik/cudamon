@@ -20,20 +20,25 @@
     <div id="content">
 
       <div id="header">
+
+        <div id="sticky">
+          <div id="status" class="up toggleHeader">
+            <span>Connection:</span>
+            <span id="connection"></span>
+          </div>
+        </div>
+
         <div id="info">
           <div style="float:left;">
+            <div id="num_gpus"><span>Attached GPUs:</span> </div>
             <div id="driver"><span>Driver Version:</span> </div>
             <div id="nvml"><span>NVML Version:</span> </div>
           </div>
           <div style="float:right;">
-            <div id="gpus"><span>Attached GPUs:</span> </div>
-            <div id="status">
-              <span>Connection:</span>
-              <span id="connection"></span>
-            </div>
           </div>
           <div style="clear:both;"></div>
         </div>
+
       </div>
 
       <div id="body">
@@ -41,5 +46,15 @@
     </div>
 
     <script src="cudamon.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+      $(function () {
+        $('.toggleHeader').click(function () {
+          $("#info").slideToggle('fast');
+          $('.toggleHeader').toggleClass('down').toggleClass('up');
+        });
+      });
+    </script>
+
   </body>
 </html>
