@@ -39,7 +39,7 @@ function init(data) {
         var color = devices[i].color;
         var infoDiv = $('<div id="gpu-' + serial + '" class="down">' + name +
                         '  <span style="float:right; background: ' + color + ';'+
-                        '               width: 75%;">' + color + '</span>' +
+                        '               min-width: 50%;">' + color + '</span>' +
                         '  <div class="hide">' +
                         '    <div class="title">Capabilities:' +
                         '      <span>' + features + '</span>' +
