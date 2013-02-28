@@ -29,12 +29,14 @@
         </div>
 
         <div id="info">
-          <div style="float:left;">
+          <div style="float:left; margin-right: 50px;">
+            <div id="host"><span>Hostname:</span> </div>
             <div id="num_gpus"><span>Attached GPUs:</span> </div>
             <div id="driver"><span>Driver Version:</span> </div>
             <div id="nvml"><span>NVML Version:</span> </div>
           </div>
-          <div style="float:right;">
+          <div style="float:right; width:50%;">
+            <div id="gpus"></div>
           </div>
           <div style="clear:both;"></div>
         </div>
@@ -50,7 +52,7 @@
     <script type="text/javascript">
       $(function () {
         $('.toggleHeader').click(function () {
-          $("#info").slideToggle('fast');
+          $("#info").slideToggle('slow');
           $('.toggleHeader').toggleClass('down').toggleClass('up');
         });
       });

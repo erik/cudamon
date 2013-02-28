@@ -46,7 +46,20 @@ body {
 }
 
 #info span {
-    text-transform: capitalize;
+    font-size: small;
+}
+
+#info .title {
+    margin-left: 20px;
+    font-size: small;
+    font-weight: bold;
+}
+
+#info .title span {
+    font-weight: normal;
+}
+
+#gpus {
     font-size: small;
 }
 

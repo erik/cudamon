@@ -16,7 +16,7 @@ function init(data) {
     driver_version = data.driver_version;
     nvml_version = data.nvml_version;
 
-    $('#host').append(data.host);
+    $('#info #host').append(data.host);
     $('#info #driver').append(driver_version);
     $('#info #nvml').append(nvml_version);
     $('#info #num_gpus').append(data.devices.length);
@@ -26,11 +26,36 @@ function init(data) {
                                      features: {}
                                    };
 
+        var features = "";
         for(var j in data.devices[i].features) {
             var feature = data.devices[i].features[j];
 
             devices[i].features[feature] = true;
+            features += feature + " ";
         }
+
+        var name = data.devices[i].index + ': ' + data.devices[i].name;
+        var serial = data.devices[i].serial;
+        var color = devices[i].color;
+        var infoDiv = $('<div id="gpu-' + serial + '" class="down">' + name +
+                        '  <span style="float:right; background: ' + color + ';'+
+                        '               width: 75%;">' + color + '</span>' +
+                        '  <div class="hide">' +
+                        '    <div class="title">Capabilities:' +
+                        '      <span>' + features + '</span>' +
+                        '    </div> ' +
+                        '    <div class="title">Serial: ' +
+                        '      <span>' + serial + '</span>' +
+                        '    </div> ' +
+                        '  </div>' +
+                        '</div>');
+
+        $('#gpus').append(infoDiv);
+
+        infoDiv.click(function () {
+            $(this).find('.hide').slideToggle('fast');
+            $(this).toggleClass('down').toggleClass('up');
+        });
     }
 }
 
