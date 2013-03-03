@@ -67,6 +67,10 @@ function update(data) {
     } else {
         $('#connection').text("OK");
         $('#connection').removeClass("interrupt");
+
+        // Date in HH:MM:SS format
+        $('#update').text(new Date().toTimeString().
+                          replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1"));
     }
 
     for(var i in data.devices) {
